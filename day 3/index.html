@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Meaning & Accessibility: Advanced QA Testing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <ul>
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#fundamentals">Fundamentals</a></li>
+                <li><a href="#semantic-depth">Semantic Elements</a></li>
+                <li><a href="#content-relationships">Content Relationships</a></li>
+                <li><a href="#aria-meaning">ARIA & Meaning</a></li>
+                <li><a href="#testing-strategies">Testing Strategies</a></li>
+                <li><a href="#qa-checklist">QA Checklist</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main role="main">
+        <!-- Introduction Section -->
+        <section id="intro" class="slide">
+            <h1>Page Meaning & Accessibility</h1>
+            <div class="slide-content">
+                <h2>From Beginner to Technical QA</h2>
+                <p>Building on Day 1's screen reader foundations, this session takes you from basic concepts to advanced technical testing of page meaning and semantic accessibility.</p>
+                
+                <div class="learning-path">
+                    <h3>Learning Journey</h3>
+                    <div class="path-grid">
+                        <div class="path-item beginner">
+                            <h4>🌱 Beginner</h4>
+                            <p>What is page meaning?</p>
+                            <p>Why does it matter for users?</p>
+                        </div>
+                        <div class="path-item intermediate">
+                            <h4>🔧 Intermediate</h4>
+                            <p>Semantic HTML elements</p>
+                            <p>Content relationships</p>
+                        </div>
+                        <div class="path-item advanced">
+                            <h4>⚡ Advanced</h4>
+                            <p>ARIA patterns</p>
+                            <p>Technical QA testing</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day1-connection">
+                    <h3>Connection to Day 1</h3>
+                    <p>Remember from Day 1: Screen readers parse the <strong>accessibility tree</strong> to understand page structure. Today we'll learn how to ensure that tree conveys proper meaning through semantic markup and ARIA.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fundamentals Section -->
+        <section id="fundamentals" class="slide">
+            <h2>Fundamentals: What is Page Meaning?</h2>
+            <div class="slide-content">
+                <div class="concept-intro">
+                    <h3>Page Meaning Explained</h3>
+                    <p>Page meaning is how browsers, assistive technologies, and search engines understand the <em>purpose</em> and <em>relationships</em> of content on your page.</p>
+                    
+                    <div class="meaning-examples">
+                        <div class="example-grid">
+                            <div class="meaning-example">
+                                <h4>🏠 Structural Meaning</h4>
+                                <p>"This is the main navigation"</p>
+                                <p>"This is the primary content area"</p>
+                                <p>"This is supplementary information"</p>
+                            </div>
+                            <div class="meaning-example">
+                                <h4>📝 Content Meaning</h4>
+                                <p>"This is a heading that introduces a section"</p>
+                                <p>"This is a list of related items"</p>
+                                <p>"This is a quote from another source"</p>
+                            </div>
+                            <div class="meaning-example">
+                                <h4>🔗 Relationship Meaning</h4>
+                                <p>"This heading describes the following content"</p>
+                                <p>"These form fields are grouped together"</p>
+                                <p>"This button controls that content area"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="impact-demo">
+                    <h3>Impact Demo: Before & After</h3>
+                    <div class="demo-controls">
+                        <button id="show-meaningless" class="control-btn">Show Meaningless Page</button>
+                        <button id="show-meaningful" class="control-btn">Show Meaningful Page</button>
+                        <button id="analyze-meaning" class="control-btn">Analyze Meaning</button>
+                    </div>
+                    
+                    <div id="meaning-demo" class="demo-container">
+                        <!-- Dynamic content will be inserted here -->
+                    </div>
+                    
+                    <div id="meaning-analysis" class="analysis-output" style="display: none;">
+                        <!-- Analysis results will appear here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Semantic Elements Deep Dive -->
+        <section id="semantic-depth" class="slide">
+            <h2>Semantic Elements: Technical Deep Dive</h2>
+            <div class="slide-content">
+                <div class="semantic-categories">
+                    <h3>HTML5 Semantic Elements by Category</h3>
+                    
+                    <div class="category-tabs">
+                        <button class="tab-btn active" data-category="structure">Document Structure</button>
+                        <button class="tab-btn" data-category="content">Content Sectioning</button>
+                        <button class="tab-btn" data-category="text">Text-Level Semantics</button>
+                        <button class="tab-btn" data-category="interactive">Interactive Elements</button>
+                    </div>
+
+                    <div class="tab-content active" id="structure-tab">
+                        <div class="semantic-grid">
+                            <div class="semantic-card">
+                                <h4>&lt;header&gt;</h4>
+                                <p class="purpose">Introductory content or navigational aids</p>
+                                <div class="code-example">
+                                    <pre><code>&lt;header role="banner"&gt;
+  &lt;h1&gt;Site Title&lt;/h1&gt;
+  &lt;nav&gt;...&lt;/nav&gt;
+&lt;/header&gt;</code></pre>
+                                </div>
+                                <p class="qa-note"><strong>QA Test:</strong> Should contain site/section title or navigation</p>
+                            </div>
+                            
+                            <div class="semantic-card">
+                                <h4>&lt;main&gt;</h4>
+                                <p class="purpose">Primary content unique to the page</p>
+                                <div class="code-example">
+                                    <pre><code>&lt;main role="main"&gt;
+  &lt;!-- Unique page content --&gt;
+&lt;/main&gt;</code></pre>
+                                </div>
+                                <p class="qa-note"><strong>QA Test:</strong> Only one per page, contains primary content</p>
+                            </div>
+                            
+                            <div class="semantic-card">
+                                <h4>&lt;aside&gt;</h4>
+                                <p class="purpose">Content indirectly related to main content</p>
+                                <div class="code-example">
+                                    <pre><code>&lt;aside role="complementary"&gt;
+  &lt;h2&gt;Related Articles&lt;/h2&gt;
+  &lt;!-- Sidebar content --&gt;
+&lt;/aside&gt;</code></pre>
+                                </div>
+                                <p class="qa-note"><strong>QA Test:</strong> Can be removed without affecting main content</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="content-tab">
+                        <div class="semantic-grid">
+                            <div class="semantic-card">
+                                <h4>&lt;article&gt;</h4>
+                                <p class="purpose">Self-contained, reusable content</p>
+                                <div class="code-example">
+                                    <pre><code>&lt;article&gt;
+  &lt;header&gt;
+    &lt;h2&gt;Article Title&lt;/h2&gt;
+    &lt;time datetime="2024-01-15"&gt;Jan 15&lt;/time&gt;
+  &lt;/header&gt;
+  &lt;p&gt;Article content...&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+                                </div>
+                                <p class="qa-note"><strong>QA Test:</strong> Makes sense when extracted from page context</p>
+                            </div>
+                            
+                            <div class="semantic-card">
+                                <h4>&lt;section&gt;</h4>
+                                <p class="purpose">Thematic grouping with heading</p>
+                                <div class="code-example">
+                                    <pre><code>&lt;section aria-labelledby="products-heading"&gt;
+  &lt;h2 id="products-heading"&gt;Products&lt;/h2&gt;
+  &lt;!-- Related content --&gt;
+&lt;/section&gt;</code></pre>
+                                </div>
+                                <p class="qa-note"><strong>QA Test:</strong> Should have a heading or aria-label</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="text-tab">
+                        <div class="semantic-grid">
+                            <div class="semantic-card">
+                                <h4>&lt;time&gt;</h4>
+                                <p class="purpose">Machine-readable dates and times</p>
+                                <div class="code-example">
+                                    <pre><code>&lt;time datetime="2024-01-15T14:30:00"&gt;
+  January 15, 2024 at 2:30 PM
+&lt;/time&gt;</code></pre>
+                                </div>
+                                <p class="qa-note"><strong>QA Test:</strong> datetime attribute should be valid ISO format</p>
+                            </div>
+                            
+                            <div class="semantic-card">
+                                <h4>&lt;cite&gt;</h4>
+                                <p class="purpose">Reference to cited work</p>
+                                <div class="code-example">
+                                    <pre><code>&lt;blockquote&gt;
+  &lt;p&gt;"Innovation distinguishes..."&lt;/p&gt;
+  &lt;cite&gt;Steve Jobs&lt;/cite&gt;
+&lt;/blockquote&gt;</code></pre>
+                                </div>
+                                <p class="qa-note"><strong>QA Test:</strong> Should reference the source, not the quote itself</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="interactive-tab">
+                        <div class="semantic-grid">
+                            <div class="semantic-card">
+                                <h4>&lt;details&gt;</h4>
+                                <p class="purpose">Disclosure widget with summary</p>
+                                <div class="code-example">
+                                    <pre><code>&lt;details&gt;
+  &lt;summary&gt;System Requirements&lt;/summary&gt;
+  &lt;p&gt;Windows 10 or later...&lt;/p&gt;
+&lt;/details&gt;</code></pre>
+                                </div>
+                                <p class="qa-note"><strong>QA Test:</strong> Should work without JavaScript</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Relationships -->
+        <section id="content-relationships" class="slide">
+            <h2>Content Relationships & Hierarchy</h2>
+            <div class="slide-content">
+                <div class="relationship-types">
+                    <h3>Types of Content Relationships</h3>
+                    
+                    <div class="relationship-demo">
+                        <h4>Hierarchical Relationships</h4>
+                        <div class="demo-controls">
+                            <button id="show-good-hierarchy" class="control-btn">Good Hierarchy</button>
+                            <button id="show-broken-hierarchy" class="control-btn">Broken Hierarchy</button>
+                            <button id="test-hierarchy" class="control-btn">Test Hierarchy</button>
+                        </div>
+                        
+                        <div id="hierarchy-demo" class="demo-container">
+                            <!-- Dynamic content will be inserted here -->
+                        </div>
+                        
+                        <div id="hierarchy-results" class="analysis-output" style="display: none;">
+                            <!-- Test results will appear here -->
+                        </div>
+                    </div>
+
+                    <div class="labeling-demo">
+                        <h4>Labeling Relationships</h4>
+                        <div class="labeling-examples">
+                            <div class="example-pair">
+                                <div class="example-item good">
+                                    <h5>✅ Proper Labeling</h5>
+                                    <div class="code-example">
+                                        <pre><code>&lt;section aria-labelledby="news-heading"&gt;
+  &lt;h2 id="news-heading"&gt;Latest News&lt;/h2&gt;
+  &lt;article&gt;...&lt;/article&gt;
+&lt;/section&gt;</code></pre>
+                                    </div>
+                                </div>
+                                <div class="example-item bad">
+                                    <h5>❌ Missing Relationship</h5>
+                                    <div class="code-example">
+                                        <pre><code>&lt;section&gt;
+  &lt;h2&gt;Latest News&lt;/h2&gt;
+  &lt;article&gt;...&lt;/article&gt;
+&lt;/section&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ARIA & Meaning -->
+        <section id="aria-meaning" class="slide">
+            <h2>ARIA & Enhanced Meaning</h2>
+            <div class="slide-content">
+                <div class="aria-patterns">
+                    <h3>ARIA Patterns for Page Meaning</h3>
+                    
+                    <div class="pattern-grid">
+                        <div class="pattern-card">
+                            <h4>aria-labelledby</h4>
+                            <p>Creates relationship between element and its label</p>
+                            <div class="code-example">
+                                <pre><code>&lt;section aria-labelledby="products-title"&gt;
+  &lt;h2 id="products-title"&gt;Our Products&lt;/h2&gt;
+  &lt;!-- Section content --&gt;
+&lt;/section&gt;</code></pre>
+                            </div>
+                            <div class="screen-reader-output">
+                                <strong>Screen Reader:</strong> "Our Products, region"
+                            </div>
+                        </div>
+                        
+                        <div class="pattern-card">
+                            <h4>aria-describedby</h4>
+                            <p>Links to additional descriptive content</p>
+                            <div class="code-example">
+                                <pre><code>&lt;button aria-describedby="save-help"&gt;Save&lt;/button&gt;
+&lt;div id="save-help"&gt;
+  Saves your progress automatically
+&lt;/div&gt;</code></pre>
+                            </div>
+                            <div class="screen-reader-output">
+                                <strong>Screen Reader:</strong> "Save button, Saves your progress automatically"
+                            </div>
+                        </div>
+                        
+                        <div class="pattern-card">
+                            <h4>role="group"</h4>
+                            <p>Groups related form controls or content</p>
+                            <div class="code-example">
+                                <pre><code>&lt;div role="group" aria-labelledby="address-heading"&gt;
+  &lt;h3 id="address-heading"&gt;Billing Address&lt;/h3&gt;
+  &lt;input type="text" placeholder="Street"&gt;
+  &lt;input type="text" placeholder="City"&gt;
+&lt;/div&gt;</code></pre>
+                            </div>
+                            <div class="screen-reader-output">
+                                <strong>Screen Reader:</strong> "Billing Address group"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="aria-testing">
+                    <h3>Testing ARIA Meaning</h3>
+                    <div class="testing-tools">
+                        <button id="test-aria-labels" class="tool-btn">Test ARIA Labels</button>
+                        <button id="test-relationships" class="tool-btn">Test Relationships</button>
+                        <button id="simulate-screen-reader" class="tool-btn">Simulate Screen Reader</button>
+                    </div>
+                    
+                    <div id="aria-test-results" class="inspector-output">
+                        <!-- Test results will appear here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testing Strategies -->
+        <section id="testing-strategies" class="slide">
+            <h2>Advanced QA Testing Strategies</h2>
+            <div class="slide-content">
+                <div class="testing-methods">
+                    <h3>Multi-Level Testing Approach</h3>
+                    
+                    <div class="testing-levels">
+                        <div class="level-card">
+                            <h4>Level 1: Automated Testing</h4>
+                            <div class="testing-tools-list">
+                                <div class="tool-item">
+                                    <strong>axe-core</strong>
+                                    <p>Automated accessibility testing</p>
+                                    <button class="demo-btn" data-tool="axe">Run axe Test</button>
+                                </div>
+                                <div class="tool-item">
+                                    <strong>Lighthouse</strong>
+                                    <p>Built-in Chrome accessibility audit</p>
+                                    <button class="demo-btn" data-tool="lighthouse">Run Lighthouse</button>
+                                </div>
+                                <div class="tool-item">
+                                    <strong>WAVE</strong>
+                                    <p>Visual accessibility evaluation</p>
+                                    <button class="demo-btn" data-tool="wave">Run WAVE</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="level-card">
+                            <h4>Level 2: Manual Testing</h4>
+                            <div class="manual-tests">
+                                <div class="test-category">
+                                    <h5>Keyboard Navigation</h5>
+                                    <button class="test-btn" id="test-keyboard">Test Keyboard Flow</button>
+                                    <div class="test-output" id="keyboard-results"></div>
+                                </div>
+                                <div class="test-category">
+                                    <h5>Screen Reader Testing</h5>
+                                    <button class="test-btn" id="test-screen-reader">Test Screen Reader</button>
+                                    <div class="test-output" id="sr-results"></div>
+                                </div>
+                                <div class="test-category">
+                                    <h5>Structure Analysis</h5>
+                                    <button class="test-btn" id="test-structure">Analyze Structure</button>
+                                    <div class="test-output" id="structure-results"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="level-card">
+                            <h4>Level 3: User Testing</h4>
+                            <div class="user-testing-guide">
+                                <p>Test with real users who rely on assistive technology</p>
+                                <div class="user-scenarios">
+                                    <div class="scenario">
+                                        <strong>Scenario 1:</strong> Navigate to product information using only keyboard
+                                    </div>
+                                    <div class="scenario">
+                                        <strong>Scenario 2:</strong> Complete purchase flow with screen reader
+                                    </div>
+                                    <div class="scenario">
+                                        <strong>Scenario 3:</strong> Find contact information using voice control
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QA Checklist -->
+        <section id="qa-checklist" class="slide">
+            <h2>Comprehensive QA Testing Checklist</h2>
+            <div class="slide-content">
+                <div class="checklist-categories">
+                    <div class="checklist-tabs">
+                        <button class="checklist-tab active" data-checklist="structure">Document Structure</button>
+                        <button class="checklist-tab" data-checklist="semantic">Semantic Elements</button>
+                        <button class="checklist-tab" data-checklist="aria">ARIA Implementation</button>
+                        <button class="checklist-tab" data-checklist="relationships">Content Relationships</button>
+                    </div>
+
+                    <div class="checklist-content active" id="structure-checklist">
+                        <h4>Document Structure Tests</h4>
+                        <div class="checklist-container">
+                            <label><input type="checkbox"> Page has unique, descriptive title</label>
+                            <label><input type="checkbox"> Language declared on html element</label>
+                            <label><input type="checkbox"> Single h1 element per page</label>
+                            <label><input type="checkbox"> Logical heading hierarchy (no skipped levels)</label>
+                            <label><input type="checkbox"> Main landmark contains primary content</label>
+                            <label><input type="checkbox"> Navigation has proper landmark</label>
+                            <label><input type="checkbox"> Skip links provided for keyboard users</label>
+                            <label><input type="checkbox"> Page regions clearly defined</label>
+                        </div>
+                    </div>
+
+                    <div class="checklist-content" id="semantic-checklist">
+                        <h4>Semantic Elements Tests</h4>
+                        <div class="checklist-container">
+                            <label><input type="checkbox"> Semantic elements used instead of generic divs</label>
+                            <label><input type="checkbox"> Articles are self-contained content</label>
+                            <label><input type="checkbox"> Sections have headings or aria-labels</label>
+                            <label><input type="checkbox"> Time elements use datetime attribute</label>
+                            <label><input type="checkbox"> Citations use cite element</label>
+                            <label><input type="checkbox"> Lists use proper list markup</label>
+                            <label><input type="checkbox"> Tables have proper headers and captions</label>
+                            <label><input type="checkbox"> Forms use fieldsets for grouping</label>
+                        </div>
+                    </div>
+
+                    <div class="checklist-content" id="aria-checklist">
+                        <h4>ARIA Implementation Tests</h4>
+                        <div class="checklist-container">
+                            <label><input type="checkbox"> ARIA labels provide clear descriptions</label>
+                            <label><input type="checkbox"> aria-labelledby references valid IDs</label>
+                            <label><input type="checkbox"> aria-describedby enhances understanding</label>
+                            <label><input type="checkbox"> Roles complement, don't override semantics</label>
+                            <label><input type="checkbox"> Live regions announce dynamic changes</label>
+                            <label><input type="checkbox"> Hidden content uses aria-hidden properly</label>
+                            <label><input type="checkbox"> Interactive elements have accessible names</label>
+                            <label><input type="checkbox"> Complex widgets follow ARIA patterns</label>
+                        </div>
+                    </div>
+
+                    <div class="checklist-content" id="relationships-checklist">
+                        <h4>Content Relationships Tests</h4>
+                        <div class="checklist-container">
+                            <label><input type="checkbox"> Headings describe following content</label>
+                            <label><input type="checkbox"> Form labels associated with controls</label>
+                            <label><input type="checkbox"> Related content grouped semantically</label>
+                            <label><input type="checkbox"> Error messages linked to form fields</label>
+                            <label><input type="checkbox"> Help text connected to relevant controls</label>
+                            <label><input type="checkbox"> Table headers associated with data cells</label>
+                            <label><input type="checkbox"> List items contain related information</label>
+                            <label><input type="checkbox"> Navigation reflects content hierarchy</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-summary">
+                    <div class="progress-indicator">
+                        <h4>Testing Progress</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        <p id="progress-text">0% Complete</p>
+                    </div>
+                    
+                    <div class="completion-actions">
+                        <button id="export-results" class="action-btn">Export Test Results</button>
+                        <button id="reset-checklist" class="action-btn secondary">Reset Checklist</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <p>&copy; 2024 Page Meaning & Accessibility Demo - Day 3 of QA Accessibility Training</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

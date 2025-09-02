@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name, Role & Value: Screen Reader Accessibility QA</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <ul>
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#fundamentals">Fundamentals</a></li>
+                <li><a href="#name-deep-dive">Name Deep Dive</a></li>
+                <li><a href="#role-exploration">Role Exploration</a></li>
+                <li><a href="#value-analysis">Value Analysis</a></li>
+                <li><a href="#testing-tools">Testing Tools</a></li>
+                <li><a href="#qa-scenarios">QA Scenarios</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main role="main">
+        <!-- Introduction Section -->
+        <section id="intro" class="slide">
+            <h1>Name, Role & Value</h1>
+            <div class="slide-content">
+                <h2>Screen Reader Accessibility for QA</h2>
+                <p>Master the three fundamental properties that screen readers use to understand and announce web content to users.</p>
+                
+                <div class="learning-path">
+                    <h3>Learning Journey</h3>
+                    <div class="path-grid">
+                        <div class="path-item beginner">
+                            <h4>Beginner</h4>
+                            <p>What are name, role, and value?</p>
+                            <p>Why do they matter for accessibility?</p>
+                        </div>
+                        <div class="path-item intermediate">
+                            <h4>Intermediate</h4>
+                            <p>How screen readers use these properties</p>
+                            <p>Common implementation patterns</p>
+                        </div>
+                        <div class="path-item advanced">
+                            <h4>Advanced</h4>
+                            <p>Complex UI components</p>
+                            <p>Advanced QA testing strategies</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="foundation-box">
+                    <h3>The Foundation of Screen Reader Accessibility</h3>
+                    <p>Every interactive element on a web page must have three key properties for screen readers to properly announce them:</p>
+                    <div class="property-grid">
+                        <div class="property-card">
+                            <h4>Name</h4>
+                            <p>What the element is called</p>
+                        </div>
+                        <div class="property-card">
+                            <h4>Role</h4>
+                            <p>What type of element it is</p>
+                        </div>
+                        <div class="property-card">
+                            <h4>Value</h4>
+                            <p>What state or content it has</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fundamentals Section -->
+        <section id="fundamentals" class="slide">
+            <h2>Fundamentals: The Three Properties</h2>
+            <div class="slide-content">
+                <div class="concept-intro">
+                    <h3>Understanding Name, Role & Value</h3>
+                    <p>Screen readers rely on these three properties to create meaningful announcements for users. Let's explore each one:</p>
+                    
+                    <div class="interactive-demo">
+                        <h4>Interactive Demo: Listen to the Difference</h4>
+                        <div class="demo-controls">
+                            <button id="demo-good-button" class="demo-btn good" aria-label="Save document - well implemented with clear accessible name">Save</button>
+                            <button id="demo-bad-button" class="demo-btn bad" title="Click here">Save</button>
+                            <button id="analyze-demo" class="control-btn">Analyze Both</button>
+                        </div>
+                        
+                        <div id="demo-analysis" class="analysis-output" style="display: none;">
+                            <!-- Analysis results will appear here -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-breakdown">
+                    <h3>Property Breakdown</h3>
+                    <div class="breakdown-tabs">
+                        <button class="tab-btn active" data-property="name">Name</button>
+                        <button class="tab-btn" data-property="role">Role</button>
+                        <button class="tab-btn" data-property="value">Value</button>
+                    </div>
+
+                    <div class="tab-content active" id="name-tab">
+                        <h4>Name: What is this element called?</h4>
+                        <p>The accessible name is how screen readers identify an element to users.</p>
+                        
+                        <div class="name-sources">
+                            <h5>Sources of Accessible Names (in priority order):</h5>
+                            <ol class="priority-list">
+                                <li><strong>aria-labelledby</strong> - References another element's text</li>
+                                <li><strong>aria-label</strong> - Direct text label</li>
+                                <li><strong>Label element</strong> - Associated form label</li>
+                                <li><strong>Element content</strong> - Text inside the element</li>
+                                <li><strong>title attribute</strong> - Tooltip text (last resort)</li>
+                            </ol>
+                        </div>
+
+                        <div class="name-examples">
+                            <div class="example-pair">
+                                <div class="example good">
+                                    <h6>Good Name</h6>
+                                    <div class="code-example">
+                                        <pre><code>&lt;button aria-label="Close dialog"&gt;×&lt;/button&gt;</code></pre>
+                                    </div>
+                                    <p class="sr-output"><strong>Screen Reader:</strong> "Close dialog, button"</p>
+                                </div>
+                                <div class="example bad">
+                                    <h6>Poor Name</h6>
+                                    <div class="code-example">
+                                        <pre><code>&lt;button&gt;×&lt;/button&gt;</code></pre>
+                                    </div>
+                                    <p class="sr-output"><strong>Screen Reader:</strong> "Times, button" (confusing!)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="role-tab">
+                        <h4>Role: What type of element is this?</h4>
+                        <p>The role tells screen readers what kind of interaction or content to expect.</p>
+                        
+                        <div class="role-sources">
+                            <h5>How Roles are Determined:</h5>
+                            <ol class="priority-list">
+                                <li><strong>Explicit ARIA role</strong> - role="button"</li>
+                                <li><strong>Implicit HTML semantics</strong> - &lt;button&gt; has implicit role="button"</li>
+                                <li><strong>Default generic role</strong> - &lt;div&gt; has no semantic meaning</li>
+                            </ol>
+                        </div>
+
+                        <div class="role-examples">
+                            <div class="role-grid">
+                                <div class="role-card">
+                                    <h6>Button Role</h6>
+                                    <div class="code-example">
+                                        <pre><code>&lt;button&gt;Submit&lt;/button&gt;
+&lt;div role="button"&gt;Submit&lt;/div&gt;</code></pre>
+                                    </div>
+                                    <p class="sr-output">Both announce as "Submit, button"</p>
+                                </div>
+                                <div class="role-card">
+                                    <h6>Link Role</h6>
+                                    <div class="code-example">
+                                        <pre><code>&lt;a href="/home"&gt;Home&lt;/a&gt;
+&lt;div role="link"&gt;Home&lt;/div&gt;</code></pre>
+                                    </div>
+                                    <p class="sr-output">Both announce as "Home, link"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="value-tab">
+                        <h4>Value: What is the current state or content?</h4>
+                        <p>The value represents the current state, content, or properties of an element.</p>
+                        
+                        <div class="value-types">
+                            <h5>Types of Values:</h5>
+                            <div class="value-grid">
+                                <div class="value-card">
+                                    <h6>Form Values</h6>
+                                    <p>Current input content</p>
+                                    <div class="code-example">
+                                        <pre><code>&lt;input type="text" value="John Doe"&gt;</code></pre>
+                                    </div>
+                                    <p class="sr-output">"John Doe" (current value)</p>
+                                </div>
+                                <div class="value-card">
+                                    <h6>State Values</h6>
+                                    <p>Current element state</p>
+                                    <div class="code-example">
+                                        <pre><code>&lt;button aria-pressed="true"&gt;Bold&lt;/button&gt;</code></pre>
+                                    </div>
+                                    <p class="sr-output">"Bold, toggle button, pressed"</p>
+                                </div>
+                                <div class="value-card">
+                                    <h6>Property Values</h6>
+                                    <p>Additional properties</p>
+                                    <div class="code-example">
+                                        <pre><code>&lt;input aria-required="true"&gt;</code></pre>
+                                    </div>
+                                    <p class="sr-output">"required" (additional property)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+        <!-- Name Deep Dive Section -->
+        <section id="name-deep-dive" class="slide">
+            <h2>Name Deep Dive: Advanced Techniques</h2>
+            <div class="slide-content">
+                <div class="name-techniques">
+                    <h3>Advanced Naming Strategies</h3>
+                    
+                    <div class="technique-demo">
+                        <h4>Complex Form Example</h4>
+                        <div class="demo-controls">
+                            <button id="show-basic-form" class="control-btn">Basic Form</button>
+                            <button id="show-enhanced-form" class="control-btn">Enhanced Form</button>
+                            <button id="test-form-names" class="control-btn">Test Names</button>
+                        </div>
+                        
+                        <div id="form-demo" class="demo-container">
+                            <!-- Dynamic form content will be inserted here -->
+                        </div>
+                        
+                        <div id="form-analysis" class="analysis-output" style="display: none;">
+                            <!-- Form analysis results will appear here -->
+                        </div>
+                    </div>
+
+                    <div class="naming-patterns">
+                        <h4>Common Naming Patterns</h4>
+                        <div class="pattern-grid">
+                            <div class="pattern-card">
+                                <h5>Descriptive Context</h5>
+                                <div class="code-example">
+                                    <pre><code>&lt;button aria-label="Delete user John Doe"&gt;
+  Delete
+&lt;/button&gt;</code></pre>
+                                </div>
+                                <p class="benefit">Provides specific context about the action</p>
+                            </div>
+                            
+                            <div class="pattern-card">
+                                <h5>Progressive Enhancement</h5>
+                                <div class="code-example">
+                                    <pre><code>&lt;button aria-labelledby="btn-text btn-status"&gt;
+  &lt;span id="btn-text"&gt;Save Document&lt;/span&gt;
+  &lt;span id="btn-status"&gt;(Draft)&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+                                </div>
+                                <p class="benefit">Combines multiple text sources for rich names</p>
+                            </div>
+                            
+                            <div class="pattern-card">
+                                <h5>Dynamic Names</h5>
+                                <div class="code-example">
+                                    <pre><code>&lt;button id="play-btn" aria-label="Play video"&gt;
+  Play
+&lt;/button&gt;
+&lt;!-- JavaScript updates to "Pause video" --&gt;</code></pre>
+                                </div>
+                                <p class="benefit">Names update to reflect current state</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="role-tab-content active" id="landmark-roles">
+                        <h4>Landmark Roles</h4>
+                        <div class="role-examples-grid">
+                            <div class="meaning-example">
+                                <h4>Content Meaning</h4>
+                                <div class="code-example">
+                                    <pre><code>&lt;header role="banner"&gt;
+  &lt;h1&gt;Site Title&lt;/h1&gt;
+&lt;/header&gt;</code></pre>
+                                </div>
+                                <p class="role-purpose">Site header with logo/title</p>
+                                <p class="role-announcement"><strong>Screen reader announces:</strong> "Site Title, banner"</p>
+                            </div>
+                            
+                            <div class="meaning-example">
+                                <h4>Structural Meaning</h4>
+                                <div class="code-example">
+                                    <pre><code>&lt;nav role="navigation" aria-label="Main menu"&gt;
+  &lt;ul&gt;...&lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+                                </div>
+                                <p class="role-purpose">Navigation links collection</p>
+                                <p class="role-announcement"><strong>Screen reader announces:</strong> "Main menu, navigation"</p>
+                            </div>
+                            
+                            <div class="role-example">
+                                <h5>complementary</h5>
+                                <div class="code-example">
+                                    <pre><code>&lt;aside role="complementary"&gt;
+  &lt;h2&gt;Related Articles&lt;/h2&gt;
+&lt;/aside&gt;</code></pre>
+                                </div>
+                                <p class="role-purpose">Supporting content sidebar</p>
+                                <p class="role-announcement"><strong>Screen reader announces:</strong> "Related Articles, complementary"</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="role-tab-content" id="widget-roles">
+                        <h4>Interactive Widget Roles</h4>
+                        <div class="widget-demo">
+                            <h5>Custom Components Demo</h5>
+                            <div class="demo-controls">
+                                <button id="show-tab-widget" class="control-btn">Tab Widget</button>
+                                <button id="show-modal-widget" class="control-btn">Modal Dialog</button>
+                                <button id="show-menu-widget" class="control-btn">Menu Widget</button>
+                            </div>
+                            
+                            <div id="widget-demo" class="demo-container">
+                                <!-- Dynamic widget content will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="role-tab-content" id="structure-roles">
+                        <h4>Document Structure Roles</h4>
+                        <div class="structure-examples">
+                            <div class="structure-card">
+                                <h5>group</h5>
+                                <p>Groups related form controls or content</p>
+                                <div class="code-example">
+                                    <pre><code>&lt;div role="group" aria-labelledby="billing-heading"&gt;
+  &lt;h3 id="billing-heading"&gt;Billing Address&lt;/h3&gt;
+  &lt;input type="text" placeholder="Street"&gt;
+  &lt;input type="text" placeholder="City"&gt;
+&lt;/div&gt;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="role-tab-content" id="live-roles">
+                        <h4>Live Region Roles</h4>
+                        <div class="live-demo">
+                            <h5>Dynamic Content Announcements</h5>
+                            <div class="live-examples">
+                                <div class="live-example">
+                                    <h6>Status Updates</h6>
+                                    <div class="code-example">
+                                        <pre><code>&lt;div role="status" aria-live="polite"&gt;
+  Form saved successfully
+&lt;/div&gt;</code></pre>
+                                    </div>
+                                    <button class="demo-live-btn" data-live="status">Test Status</button>
+                                </div>
+                                
+                                <div class="live-example">
+                                    <h6>Alert Messages</h6>
+                                    <div class="code-example">
+                                        <pre><code>&lt;div role="alert" aria-live="assertive"&gt;
+  Error: Please fix required fields
+&lt;/div&gt;</code></pre>
+                                    </div>
+                                    <button class="demo-live-btn" data-live="alert">Test Alert</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="role-test-results" class="inspector-output" style="display: none;">
+                    <!-- Role test results will appear here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Value Analysis Section -->
+        <section id="value-analysis" class="slide">
+            <h2>Value Analysis: States & Properties</h2>
+            <div class="slide-content">
+                <div class="value-deep-dive">
+                    <h3>Understanding Element Values</h3>
+                    
+                    <div class="value-categories">
+                        <div class="value-category">
+                            <h4>Form Control Values</h4>
+                            <div class="interactive-form">
+                                <h5>Live Form Testing</h5>
+                                <div class="form-container">
+                                    <div class="form-group">
+                                        <label for="test-input">Name:</label>
+                                        <input type="text" id="test-input" placeholder="Enter your name">
+                                        <button id="check-input-value" class="check-btn">Check Value</button>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="test-select">Country:</label>
+                                        <select id="test-select">
+                                            <option value="">Select country</option>
+                                            <option value="us">United States</option>
+                                            <option value="ca">Canada</option>
+                                            <option value="uk">United Kingdom</option>
+                                        </select>
+                                        <button id="check-select-value" class="check-btn">Check Value</button>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <fieldset>
+                                            <legend>Preferences:</legend>
+                                            <label><input type="checkbox" id="newsletter" value="newsletter"> Newsletter</label>
+                                            <label><input type="checkbox" id="updates" value="updates"> Updates</label>
+                                        </fieldset>
+                                        <button id="check-checkbox-values" class="check-btn">Check Values</button>
+                                    </div>
+                                </div>
+                                
+                                <div id="form-value-results" class="value-results">
+                                    <!-- Form value results will appear here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="value-category">
+                            <h4>State Values (ARIA States)</h4>
+                            <div class="state-examples">
+                                <div class="state-demo">
+                                    <h5>Interactive State Testing</h5>
+                                    <div class="state-controls">
+                                        <button id="toggle-btn" aria-pressed="false">Toggle Button</button>
+                                        <button id="check-toggle-state" class="check-btn">Check State</button>
+                                    </div>
+                                    
+                                    <div class="expandable-section">
+                                        <button id="expand-btn" aria-expanded="false" aria-controls="expandable-content">
+                                            Expandable Section
+                                        </button>
+                                        <div id="expandable-content" style="display: none;">
+                                            <p>This content can be expanded or collapsed.</p>
+                                        </div>
+                                        <button id="check-expand-state" class="check-btn">Check State</button>
+                                    </div>
+                                    
+                                    <div id="state-results" class="value-results">
+                                        <!-- State results will appear here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="value-category">
+                            <h4>Property Values (ARIA Properties)</h4>
+                            <div class="property-examples">
+                                <div class="property-grid">
+                                    <div class="property-card">
+                                        <h6>aria-required</h6>
+                                        <div class="code-example">
+                                            <pre><code>&lt;input type="email" aria-required="true"&gt;</code></pre>
+                                        </div>
+                                        <p class="sr-output">"Email, edit text, required"</p>
+                                    </div>
+                                    
+                                    <div class="property-card">
+                                        <h6>aria-invalid</h6>
+                                        <div class="code-example">
+                                            <pre><code>&lt;input type="email" aria-invalid="true"&gt;</code></pre>
+                                        </div>
+                                        <p class="sr-output">"Email, edit text, invalid entry"</p>
+                                    </div>
+                                    
+                                    <div class="property-card">
+                                        <h6>aria-describedby</h6>
+                                        <div class="code-example">
+                                            <pre><code>&lt;input aria-describedby="pwd-help"&gt;
+&lt;div id="pwd-help"&gt;8+ characters&lt;/div&gt;</code></pre>
+                                        </div>
+                                        <p class="sr-output">"Password, edit text, 8+ characters"</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="value-qa-scenarios">
+                        <h4>Advanced QA Scenarios</h4>
+                        <div class="scenario-list">
+                            <div class="scenario-item">
+                                <h6>What Would Happen If...</h6>
+                                <p>A form field has both a label and aria-label with different text? Which one would the screen reader announce and why?</p>
+                                <button class="reveal-btn" data-answer="label-conflict">Reveal Answer</button>
+                                <div class="answer" id="label-conflict" style="display: none;">
+                                    <p><strong>Answer:</strong> aria-label takes precedence over the label element. The screen reader would announce the aria-label text. This could confuse users who can see the visual label but hear different text.</p>
+                                    <p><strong>QA Test:</strong> Always verify that aria-label matches or enhances the visible label text.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="scenario-item">
+                                <h6>Real-World Debugging</h6>
+                                <p>Users report that a "Save" button sometimes announces as "Save" and sometimes as "Saving..." but the visual text never changes. What's likely happening?</p>
+                                <button class="reveal-btn" data-answer="dynamic-aria">Reveal Investigation</button>
+                                <div class="answer" id="dynamic-aria" style="display: none;">
+                                    <p><strong>Likely Cause:</strong> JavaScript is dynamically updating the aria-label during the save process.</p>
+                                    <p><strong>QA Tests:</strong></p>
+                                    <ul>
+                                        <li>Check if aria-label changes during interaction</li>
+                                        <li>Verify the button is properly disabled during save</li>
+                                        <li>Test with screen reader to confirm announcements</li>
+                                        <li>Ensure visual feedback matches audio feedback</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testing Tools Section -->
+        <section id="testing-tools" class="slide">
+            <h2>QA Testing Tools & Techniques</h2>
+            <div class="slide-content">
+                <div class="testing-arsenal">
+                    <h3>Your QA Testing Arsenal</h3>
+                    
+                    <div class="tool-categories">
+                        <div class="tool-category">
+                            <h4>Browser DevTools</h4>
+                            <div class="tool-demo">
+                                <h5>Accessibility Tree Inspector</h5>
+                                <div class="devtools-visual">
+                                    <div class="devtools-screenshot">
+                                        <div class="devtools-panel">
+                                            <div class="panel-header">Elements | Accessibility</div>
+                                            <div class="accessibility-tree">
+                                                <div class="tree-item">
+                                                    <span class="tree-icon">▼</span>
+                                                    <span class="tree-role">button</span>
+                                                    <span class="tree-name">"Save document"</span>
+                                                </div>
+                                                <div class="tree-item nested">
+                                                    <span class="tree-property">Name: "Save document"</span>
+                                                </div>
+                                                <div class="tree-item nested">
+                                                    <span class="tree-property">Role: button</span>
+                                                </div>
+                                                <div class="tree-item nested">
+                                                    <span class="tree-property">Focusable: true</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="tool-description">Use Chrome DevTools → Elements → Accessibility tab to inspect the accessibility tree and verify name, role, and value properties.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tool-category">
+                            <h4>Screen Reader Simulation</h4>
+                            <div class="sr-simulator">
+                                <h5>Screen Reader Output Simulator</h5>
+                                <div class="simulator-controls">
+                                    <select id="sr-mode">
+                                        <option value="browse">Browse Mode</option>
+                                        <option value="focus">Focus Mode</option>
+                                        <option value="forms">Forms Mode</option>
+                                    </select>
+                                    <button id="start-simulation" class="tool-btn">Start Simulation</button>
+                                    <button id="stop-simulation" class="tool-btn">Stop Simulation</button>
+                                </div>
+                                
+                                <div id="sr-output" class="sr-simulation-output">
+                                    <!-- Screen reader simulation output -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tool-category">
+                            <h4>Automated Testing</h4>
+                            <div class="automated-tools">
+                                <div class="automation-demo">
+                                    <h5>Accessibility Audit Results</h5>
+                                    <p class="audit-description">Here's what automated accessibility audits would find on this page:</p>
+                                    
+                                    <div class="audit-tabs">
+                                        <button class="audit-tab-btn active" data-audit="names">Names Audit</button>
+                                        <button class="audit-tab-btn" data-audit="roles">Roles Audit</button>
+                                        <button class="audit-tab-btn" data-audit="values">Values Audit</button>
+                                        <button class="audit-tab-btn" data-audit="full">Full Audit</button>
+                                    </div>
+                                    
+                                    <div class="audit-results-visual">
+                                        <div class="audit-content active" id="names-audit">
+                                            <div class="audit-summary">
+                                                <div class="audit-score good">
+                                                    <span class="score">87%</span>
+                                                    <span class="score-label">Names Score</span>
+                                                </div>
+                                                <div class="audit-stats">
+                                                    <div class="stat">
+                                                        <span class="stat-number">23</span>
+                                                        <span class="stat-label">Elements with names</span>
+                                                    </div>
+                                                    <div class="stat">
+                                                        <span class="stat-number">3</span>
+                                                        <span class="stat-label">Missing names</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="audit-issues">
+                                                <h6>Issues Found:</h6>
+                                                <div class="issue-item warning">
+                                                    <span class="issue-icon">WARNING</span>
+                                                    <div class="issue-details">
+                                                        <strong>Button missing accessible name</strong>
+                                                        <p>Line 86: &lt;button title="Click here"&gt;Save&lt;/button&gt;</p>
+                                                        <p class="fix-suggestion">Fix: Add aria-label="Save document"</p>
+                                                    </div>
+                                                </div>
+                                                <div class="issue-item error">
+                                                    <span class="issue-icon">ERROR</span>
+                                                    <div class="issue-details">
+                                                        <strong>Form input without label</strong>
+                                                        <p>Line 315: &lt;input type="text" placeholder="Enter email"&gt;</p>
+                                                        <p class="fix-suggestion">Fix: Add &lt;label&gt; element or aria-label</p>
+                                                    </div>
+                                                </div>
+                                                <div class="issue-item warning">
+                                                    <span class="issue-icon">WARNING</span>
+                                                    <div class="issue-details">
+                                                        <strong>Icon-only navigation items</strong>
+                                                        <p>Line 647: Navigation icons lack text alternatives</p>
+                                                        <p class="fix-suggestion">Fix: Add aria-label to each nav item</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="audit-content" id="roles-audit">
+                                            <div class="audit-summary">
+                                                <div class="audit-score excellent">
+                                                    <span class="score">94%</span>
+                                                    <span class="score-label">Roles Score</span>
+                                                </div>
+                                                <div class="audit-stats">
+                                                    <div class="stat">
+                                                        <span class="stat-number">31</span>
+                                                        <span class="stat-label">Proper semantic roles</span>
+                                                    </div>
+                                                    <div class="stat">
+                                                        <span class="stat-number">2</span>
+                                                        <span class="stat-label">Role issues</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="audit-issues">
+                                                <h6>Issues Found:</h6>
+                                                <div class="issue-item warning">
+                                                    <span class="issue-icon">WARNING</span>
+                                                    <div class="issue-details">
+                                                        <strong>Generic div used for interactive element</strong>
+                                                        <p>Line 628: &lt;div class="submit-btn"&gt;Submit&lt;/div&gt;</p>
+                                                        <p class="fix-suggestion">Fix: Use &lt;button&gt; or add role="button"</p>
+                                                    </div>
+                                                </div>
+                                                <div class="issue-item info">
+                                                    <span class="issue-icon">INFO</span>
+                                                    <div class="issue-details">
+                                                        <strong>Missing landmark role</strong>
+                                                        <p>Line 603: Section could benefit from role="region"</p>
+                                                        <p class="fix-suggestion">Consider: Add role="region" with aria-labelledby</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="audit-content" id="values-audit">
+                                            <div class="audit-summary">
+                                                <div class="audit-score good">
+                                                    <span class="score">82%</span>
+                                                    <span class="score-label">Values Score</span>
+                                                </div>
+                                                <div class="audit-stats">
+                                                    <div class="stat">
+                                                        <span class="stat-number">18</span>
+                                                        <span class="stat-label">Elements with proper states</span>
+                                                    </div>
+                                                    <div class="stat">
+                                                        <span class="stat-number">4</span>
+                                                        <span class="stat-label">Missing state info</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="audit-issues">
+                                                <h6>Issues Found:</h6>
+                                                <div class="issue-item error">
+                                                    <span class="issue-icon">ERROR</span>
+                                                    <div class="issue-details">
+                                                        <strong>Required field not marked</strong>
+                                                        <p>Line 338: Email input should have aria-required="true"</p>
+                                                        <p class="fix-suggestion">Fix: Add aria-required="true"</p>
+                                                    </div>
+                                                </div>
+                                                <div class="issue-item warning">
+                                                    <span class="issue-icon">WARNING</span>
+                                                    <div class="issue-details">
+                                                        <strong>Toggle button state unclear</strong>
+                                                        <p>Line 432: aria-pressed value should reflect visual state</p>
+                                                        <p class="fix-suggestion">Fix: Ensure aria-pressed matches visual appearance</p>
+                                                    </div>
+                                                </div>
+                                                <div class="issue-item info">
+                                                    <span class="issue-icon">INFO</span>
+                                                    <div class="issue-details">
+                                                        <strong>Form validation feedback missing</strong>
+                                                        <p>Line 394: Input errors not announced to screen readers</p>
+                                                        <p class="fix-suggestion">Consider: Add aria-invalid and aria-describedby for errors</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="audit-content" id="full-audit">
+                                            <div class="audit-summary">
+                                                <div class="audit-score good">
+                                                    <span class="score">88%</span>
+                                                    <span class="score-label">Overall Score</span>
+                                                </div>
+                                                <div class="audit-breakdown">
+                                                    <div class="breakdown-item">
+                                                        <span class="breakdown-label">Names</span>
+                                                        <div class="breakdown-bar">
+                                                            <div class="breakdown-fill" style="width: 87%"></div>
+                                                        </div>
+                                                        <span class="breakdown-score">87%</span>
+                                                    </div>
+                                                    <div class="breakdown-item">
+                                                        <span class="breakdown-label">Roles</span>
+                                                        <div class="breakdown-bar">
+                                                            <div class="breakdown-fill" style="width: 94%"></div>
+                                                        </div>
+                                                        <span class="breakdown-score">94%</span>
+                                                    </div>
+                                                    <div class="breakdown-item">
+                                                        <span class="breakdown-label">Values</span>
+                                                        <div class="breakdown-bar">
+                                                            <div class="breakdown-fill" style="width: 82%"></div>
+                                                        </div>
+                                                        <span class="breakdown-score">82%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="audit-recommendations">
+                                                <h6>Priority Recommendations:</h6>
+                                                <div class="recommendation high">
+                                                    <span class="priority-badge high">HIGH</span>
+                                                    <div class="rec-details">
+                                                        <strong>Fix form input labels</strong>
+                                                        <p>3 form inputs lack proper accessible names</p>
+                                                    </div>
+                                                </div>
+                                                <div class="recommendation medium">
+                                                    <span class="priority-badge medium">MEDIUM</span>
+                                                    <div class="rec-details">
+                                                        <strong>Add required field indicators</strong>
+                                                        <p>Required fields need aria-required="true"</p>
+                                                    </div>
+                                                </div>
+                                                <div class="recommendation low">
+                                                    <span class="priority-badge low">LOW</span>
+                                                    <div class="rec-details">
+                                                        <strong>Enhance landmark structure</strong>
+                                                        <p>Consider adding more specific landmark roles</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QA Scenarios Section -->
+        <section id="qa-scenarios" class="slide">
+            <h2>Real-World QA Scenarios</h2>
+            <div class="slide-content">
+                <div class="scenario-challenges">
+                    <h3>Interactive QA Challenges</h3>
+                    
+                    <div class="challenge-tabs">
+                        <button class="challenge-tab-btn active" data-challenge="forms">Form Testing</button>
+                        <button class="challenge-tab-btn" data-challenge="navigation">Navigation</button>
+                        <button class="challenge-tab-btn" data-challenge="dynamic">Dynamic Content</button>
+                        <button class="challenge-tab-btn" data-challenge="complex">Complex Widgets</button>
+                    </div>
+
+                    <div class="challenge-content active" id="forms-challenge">
+                        <h4>Form Accessibility Challenge</h4>
+                        <div class="challenge-scenario">
+                            <p>You're testing a registration form. Identify and fix the name, role, and value issues:</p>
+                            
+                            <div class="challenge-form">
+                                <div class="form-field">
+                                    <div class="label">Email Address *</div>
+                                    <input type="text" placeholder="Enter email">
+                                </div>
+                                
+                                <div class="form-field">
+                                    <label for="challenge-password" class="label">Password</label>
+                                    <input type="password" id="challenge-password">
+                                    <div class="help-text">Must be 8+ characters</div>
+                                </div>
+                                
+                                <div class="form-field">
+                                    <label class="checkbox-group">
+                                        <input type="checkbox" id="terms">
+                                        <span>Subscribe to newsletter</span>
+                                    </label>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <div class="btn submit-btn">Create Account</div>
+                                </div>
+                            </div>
+                            
+                            <div class="challenge-controls">
+                                <button id="analyze-form-issues" class="challenge-btn">Analyze Issues</button>
+                                <button id="show-form-fixes" class="challenge-btn">Show Fixes</button>
+                                <button id="test-fixed-form" class="challenge-btn">Test Fixed Version</button>
+                            </div>
+                            
+                            <div id="form-challenge-results" class="challenge-results">
+                                <!-- Challenge results will appear here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="challenge-content" id="navigation-challenge">
+                        <h4>Navigation Accessibility Challenge</h4>
+                        <div class="challenge-scenario">
+                            <p>Test this navigation component for proper name, role, and value implementation:</p>
+                            
+                            <div class="challenge-nav">
+                                <div class="nav-container">
+                                    <div class="nav-item">Home</div>
+                                    <div class="nav-item active">Dashboard</div>
+                                    <div class="nav-item">Settings</div>
+                                    <div class="nav-item">Profile</div>
+                                </div>
+                            </div>
+                            
+                            <div class="challenge-controls">
+                                <button id="test-nav-accessibility" class="challenge-btn">Test Navigation</button>
+                                <button id="improve-nav" class="challenge-btn">Show Improvements</button>
+                            </div>
+                            
+                            <div id="nav-challenge-results" class="challenge-results">
+                                <!-- Navigation challenge results -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="challenge-content" id="dynamic-challenge">
+                        <h4>Dynamic Content Challenge</h4>
+                        <div class="challenge-scenario">
+                            <p>Test how well this dynamic content communicates changes to screen readers:</p>
+                            
+                            <div class="dynamic-demo">
+                                <button id="load-content-btn">Load More Content</button>
+                                <div id="loading-indicator" style="display: none;">Loading...</div>
+                                <div id="content-area">
+                                    <p>Initial content loaded.</p>
+                                </div>
+                                <div id="status-area"></div>
+                            </div>
+                            
+                            <div class="challenge-controls">
+                                <button id="test-dynamic-updates" class="challenge-btn">Test Updates</button>
+                                <button id="improve-dynamic" class="challenge-btn">Show Improvements</button>
+                            </div>
+                            
+                            <div id="dynamic-challenge-results" class="challenge-results">
+                                <!-- Dynamic content challenge results -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="challenge-content" id="complex-challenge">
+                        <h4>Complex Widget Challenge</h4>
+                        <div class="challenge-scenario">
+                            <p>Evaluate this custom dropdown component:</p>
+                            
+                            <div class="custom-dropdown">
+                                <div class="dropdown-trigger">Select an option</div>
+                                <div class="dropdown-menu" style="display: none;">
+                                    <div class="dropdown-item">Option 1</div>
+                                    <div class="dropdown-item">Option 2</div>
+                                    <div class="dropdown-item">Option 3</div>
+                                </div>
+                            </div>
+                            
+                            <div class="challenge-controls">
+                                <button id="test-dropdown" class="challenge-btn">Test Dropdown</button>
+                                <button id="fix-dropdown" class="challenge-btn">Show ARIA Implementation</button>
+                            </div>
+                            
+                            <div id="complex-challenge-results" class="challenge-results">
+                                <!-- Complex widget challenge results -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="final-qa-checklist">
+                    <h3>Master QA Checklist: Name, Role & Value</h3>
+                    <div class="master-checklist">
+                        <div class="checklist-section">
+                            <h4>Names</h4>
+                            <div class="checklist-items">
+                                <label><input type="checkbox"> All interactive elements have accessible names</label>
+                                <label><input type="checkbox"> Names are descriptive and contextual</label>
+                                <label><input type="checkbox"> Visual labels match accessible names</label>
+                                <label><input type="checkbox"> Dynamic name changes are announced</label>
+                                <label><input type="checkbox"> Icon-only elements have text alternatives</label>
+                            </div>
+                        </div>
+                        
+                        <div class="checklist-section">
+                            <h4>Roles</h4>
+                            <div class="checklist-items">
+                                <label><input type="checkbox"> Semantic HTML used where possible</label>
+                                <label><input type="checkbox"> ARIA roles enhance, don't override semantics</label>
+                                <label><input type="checkbox"> Custom widgets have appropriate roles</label>
+                                <label><input type="checkbox"> Landmark roles structure the page</label>
+                                <label><input type="checkbox"> Interactive elements have correct roles</label>
+                            </div>
+                        </div>
+                        
+                        <div class="checklist-section">
+                            <h4>Values</h4>
+                            <div class="checklist-items">
+                                <label><input type="checkbox"> Form values are announced correctly</label>
+                                <label><input type="checkbox"> State changes are communicated</label>
+                                <label><input type="checkbox"> Required fields are identified</label>
+                                <label><input type="checkbox"> Error states are announced</label>
+                                <label><input type="checkbox"> Progress and status updates are live</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-actions">
+                        <button id="export-checklist" class="action-btn">Export Checklist</button>
+                        <button id="reset-master-checklist" class="action-btn secondary">Reset All</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <p>&copy; 2024 Name, Role & Value Demo - Day 1 of QA Accessibility Training</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
