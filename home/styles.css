@@ -1,0 +1,511 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', system-ui, sans-serif;
+    line-height: 1.7;
+    color: #1a1a1a;
+    background: #fafafa;
+    min-height: 100vh;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    color: white;
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+}
+
+.header-content h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 300;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    font-weight: 300;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Main Content */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Hero Section */
+.hero {
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.hero-content h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    color: #1e293b;
+    letter-spacing: -0.02em;
+}
+
+.hero-content p {
+    font-size: 1.1rem;
+    color: #64748b;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+/* Training Weeks */
+.training-weeks {
+    padding: 4rem 0;
+}
+
+.week-section {
+    margin-bottom: 4rem;
+}
+
+.week-section:last-child {
+    margin-bottom: 0;
+}
+
+.week-header {
+    font-size: clamp(1.8rem, 4vw, 2.2rem);
+    font-weight: 300;
+    color: #1e293b;
+    margin-bottom: 1rem;
+    text-align: center;
+    letter-spacing: -0.02em;
+}
+
+.week-description {
+    text-align: center;
+    color: #64748b;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+}
+
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.day-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.day-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #10b981, #059669);
+}
+
+.day-card.day-2::before {
+    background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+.day-card.day-3::before {
+    background: linear-gradient(90deg, #8b5cf6, #7c3aed);
+}
+
+.day-card.day-4::before {
+    background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+.day-card.day-5::before {
+    background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+.day-card.day-6::before {
+    background: linear-gradient(90deg, #8b5cf6, #7c3aed);
+}
+
+.day-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.day-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.day-number {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.day-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.day-badge.beginner {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.day-badge.intermediate {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.day-badge.advanced {
+    background: #e0e7ff;
+    color: #3730a3;
+}
+
+.day-card h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: #1e293b;
+}
+
+.day-description {
+    color: #64748b;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.day-topics {
+    margin-bottom: 2rem;
+}
+
+.day-topics h4 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    color: #374151;
+}
+
+.day-topics ul {
+    list-style: none;
+    padding: 0;
+}
+
+.day-topics li {
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+.day-topics li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #10b981;
+    font-weight: bold;
+}
+
+.day-2 .day-topics li::before {
+    color: #f59e0b;
+}
+
+.day-3 .day-topics li::before {
+    color: #8b5cf6;
+}
+
+.day-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.duration {
+    font-size: 0.9rem;
+    color: #64748b;
+    font-style: italic;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn-primary {
+    background: #6366f1;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #4f46e5;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #6366f1;
+    border: 1px solid #6366f1;
+}
+
+.btn-secondary:hover {
+    background: #6366f1;
+    color: white;
+}
+
+.btn-large {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+}
+
+.btn-disabled {
+    background: #9ca3af !important;
+    color: white !important;
+    cursor: not-allowed !important;
+    opacity: 0.7;
+}
+
+.btn-disabled:hover {
+    background: #9ca3af !important;
+    transform: none !important;
+}
+
+/* Learning Path */
+.learning-path {
+    padding: 4rem 0;
+    background: white;
+    border-radius: 12px;
+    margin: 2rem 0;
+    padding: 3rem 2rem;
+}
+
+.learning-path h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 300;
+    margin-bottom: 3rem;
+    color: #1e293b;
+}
+
+.path-overview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.path-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 250px;
+}
+
+.step-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.step-icon.beginner {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.step-icon.intermediate {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.step-icon.advanced {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.step-content h4 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #1e293b;
+}
+
+.step-content p {
+    color: #64748b;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.path-arrow {
+    font-size: 1.5rem;
+    color: #cbd5e1;
+    font-weight: bold;
+}
+
+/* Getting Started */
+.getting-started {
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.getting-started-content h2 {
+    font-size: 2rem;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    color: #1e293b;
+}
+
+.getting-started-content p {
+    font-size: 1.1rem;
+    color: #64748b;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    line-height: 1.8;
+}
+
+.start-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.alternative-starts {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.alternative-starts span {
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+/* Footer */
+footer {
+    background: #1e293b;
+    color: white;
+    text-align: center;
+    padding: 3rem 2rem;
+    margin-top: 4rem;
+}
+
+.footer-content p {
+    margin: 0.5rem 0;
+    opacity: 0.8;
+}
+
+.footer-content p:first-child {
+    font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .days-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .day-card {
+        padding: 1.5rem;
+    }
+    
+    .path-overview {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .path-arrow {
+        transform: rotate(90deg);
+    }
+    
+    .alternative-starts {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .start-options .btn-large {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 0 1rem;
+    }
+    
+    header {
+        padding: 3rem 1rem 2rem;
+    }
+    
+    .hero {
+        padding: 3rem 0;
+    }
+    
+    .learning-path {
+        margin: 1rem 0;
+        padding: 2rem 1rem;
+    }
+}
+
+/* Focus indicators */
+*:focus {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
