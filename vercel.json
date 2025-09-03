@@ -10,15 +10,15 @@
     },
     {
       "source": "/day-1",
-      "destination": "/day 1/index.html"
+      "destination": "/day%201/index.html"
     },
     {
       "source": "/day-2", 
-      "destination": "/day 2/index.html"
+      "destination": "/day%202/index.html"
     },
     {
       "source": "/day-3",
-      "destination": "/day 3/index.html"
+      "destination": "/day%203/index.html"
     }
   ],
   "headers": [
