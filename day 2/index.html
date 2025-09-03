@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 2: Page Meaning & Accessibility - QA Training</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <div class="day-info">
+                <span class="day-number">Day 2</span>
+              
+            </div>
+            <h1>Page Meaning & Accessibility</h1>
+            <p class="header-subtitle">Master semantic structure and meaningful content organization for inclusive QA testing</p>
+            <nav class="progress-nav">
+                <a href="../../home/index.html" class="nav-link">← Back to Training Home</a>
+                <div class="progress-indicator">
+                    <span class="progress-text">Day 2 of 6</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 33%"></div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main role="main">
+        <!-- Learning Path Section -->
+        <section class="learning-path-section">
+            <div class="path-container">
+                <div class="path-step active">
+                    <div class="step-icon">1</div>
+                    <div class="step-content">
+                        <h3>Foundation</h3>
+                        <p>Understanding page structure and semantic meaning</p>
+                    </div>
+                </div>
+                <div class="path-arrow">→</div>
+                <div class="path-step">
+                    <div class="step-icon">2</div>
+                    <div class="step-content">
+                        <h3>Implementation</h3>
+                        <p>Testing landmarks, headings, and content organization</p>
+                    </div>
+                </div>
+                <div class="path-arrow">→</div>
+                <div class="path-step">
+                    <div class="step-icon">3</div>
+                    <div class="step-content">
+                        <h3>Mastery</h3>
+                        <p>Advanced page meaning validation and QA workflows</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Introduction Section -->
+        <section id="intro" class="content-section">
+            <div class="section-header">
+                <h2>Foundation: Understanding Page Meaning</h2>
+                <p class="section-subtitle">Learn how semantic structure creates meaningful, accessible experiences</p>
+            </div>
+            <div class="slide-content">
+                <div class="intro-grid">
+                    <div class="intro-text">
+                        <h3>Why Page Meaning Matters</h3>
+                        <p>Building on Day 1's screen reader knowledge, page meaning ensures content is logically structured and semantically rich for all users.</p>
+                        
+                        <div class="key-concepts">
+                            <h4>Core Elements We'll Test:</h4>
+                            <ul>
+                                <li><strong>Semantic Structure</strong> - HTML elements that convey meaning</li>
+                                <li><strong>Heading Hierarchy</strong> - Logical content organization</li>
+                                <li><strong>Landmarks</strong> - Page regions and navigation</li>
+                                <li><strong>Content Flow</strong> - Reading order and relationships</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="impact-box">
+                        <h4>QA Impact of Poor Page Structure</h4>
+                        <div class="impact-item">
+                            <span class="impact-icon"></span>
+                            <span>Screen readers can't navigate efficiently</span>
+                        </div>
+                        <div class="impact-item">
+                            <span class="impact-icon"></span>
+                            <span>SEO suffers from unclear content hierarchy</span>
+                        </div>
+                        <div class="impact-item">
+                            <span class="impact-icon">🧠</span>
+                            <span>Users with cognitive disabilities get confused</span>
+                        </div>
+                        <div class="impact-item">
+                            <span class="impact-icon"></span>
+                            <span>Legal compliance issues arise</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-demo">
+                    <h4>Interactive Demo: Page Structure Analysis</h4>
+                    <div class="demo-tabs">
+                        <button class="tab-btn active" data-tab="good-structure">Good Structure</button>
+                        <button class="tab-btn" data-tab="bad-structure">Poor Structure</button>
+                    </div>
+                    
+                    <div class="tab-content active" id="good-structure">
+                        <div class="structure-example">
+                            <h5>Well-Structured News Article</h5>
+                            <div class="reasoning-box good">
+                                <h6>Why This Structure is Good:</h6>
+                                <ul>
+                                    <li><strong>Semantic HTML:</strong> Uses proper elements like &lt;header&gt;, &lt;main&gt;, &lt;article&gt;, &lt;aside&gt; that convey meaning</li>
+                                    <li><strong>Clear Hierarchy:</strong> Logical heading structure (H1 → H2 → H3) helps screen readers navigate</li>
+                                    <li><strong>Accessible Navigation:</strong> Proper &lt;nav&gt; element with aria-label for context</li>
+                                    <li><strong>Structured Content:</strong> Article sections are clearly defined and meaningful</li>
+                                    <li><strong>Screen Reader Friendly:</strong> Assistive technologies can easily understand and navigate the content</li>
+                                </ul>
+                            </div>
+                            <div class="example-page good">
+                                <header class="example-header">
+                                    <nav aria-label="Site navigation">
+                                        <ul>
+                                            <li><a href="#home">Home</a></li>
+                                            <li><a href="#news">News</a></li>
+                                            <li><a href="#sports">Sports</a></li>
+                                        </ul>
+                                    </nav>
+                                </header>
+                                <main>
+                                    <article>
+                                        <header>
+                                            <h1>Breaking: New Accessibility Guidelines Released</h1>
+                                            <p class="byline">By <span class="author">Sarah Johnson</span> | <time datetime="2024-01-15">January 15, 2024</time></p>
+                                        </header>
+                                        <section>
+                                            <h2>Key Changes in WCAG 2.2</h2>
+                                            <p>The latest guidelines introduce several important updates...</p>
+                                            
+                                            <h3>Focus Management Requirements</h3>
+                                            <p>New criteria for keyboard navigation...</p>
+                                            
+                                            <h3>Mobile Accessibility Standards</h3>
+                                            <p>Enhanced requirements for touch interfaces...</p>
+                                        </section>
+                                    </article>
+                                </main>
+                                <aside aria-label="Related articles">
+                                    <h2>Related Stories</h2>
+                                    <ul>
+                                        <li><a href="#story1">ARIA Best Practices Update</a></li>
+                                        <li><a href="#story2">Testing Tools Comparison</a></li>
+                                    </ul>
+                                </aside>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="bad-structure">
+                        <div class="structure-example">
+                            <h5>Poorly Structured News Article</h5>
+                            <div class="reasoning-box bad">
+                                <h6>Why This Structure is Poor:</h6>
+                                <ul>
+                                    <li><strong>Generic Divs:</strong> Uses meaningless &lt;div&gt; elements instead of semantic HTML</li>
+                                    <li><strong>No Heading Structure:</strong> Uses styled text instead of proper heading elements</li>
+                                    <li><strong>Missing Landmarks:</strong> No &lt;nav&gt;, &lt;main&gt;, or &lt;article&gt; elements for navigation</li>
+                                    <li><strong>Inline Styles:</strong> Styling mixed with content makes it harder to maintain and understand</li>
+                                    <li><strong>Accessibility Barriers:</strong> Screen readers cannot understand the page structure or navigate efficiently</li>
+                                    <li><strong>SEO Impact:</strong> Search engines cannot properly index and understand the content hierarchy</li>
+                                </ul>
+                            </div>
+                            <div class="example-page bad">
+                                <div class="example-header">
+                                    <div>
+                                        <div><a href="#home">Home</a></div>
+                                        <div><a href="#news">News</a></div>
+                                        <div><a href="#sports">Sports</a></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <div>
+                                            <div style="font-size: 24px; font-weight: bold;">Breaking: New Accessibility Guidelines Released</div>
+                                            <div style="font-size: 14px;">By Sarah Johnson | January 15, 2024</div>
+                                        </div>
+                                        <div>
+                                            <div style="font-size: 18px; font-weight: bold;">Key Changes in WCAG 2.2</div>
+                                            <div>The latest guidelines introduce several important updates...</div>
+                                            
+                                            <div style="font-size: 16px; font-weight: bold;">Focus Management Requirements</div>
+                                            <div>New criteria for keyboard navigation...</div>
+                                            
+                                            <div style="font-size: 16px; font-weight: bold;">Mobile Accessibility Standards</div>
+                                            <div>Enhanced requirements for touch interfaces...</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 18px; font-weight: bold;">Related Stories</div>
+                                    <div>
+                                        <div><a href="#story1">ARIA Best Practices Update</a></div>
+                                        <div><a href="#story2">Testing Tools Comparison</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Semantic Elements Section -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2>🔧 Implementation: Semantic HTML Elements</h2>
+                <p class="section-subtitle">Master the building blocks of meaningful page structure</p>
+            </div>
+            <div class="slide-content">
+                <div class="semantic-grid">
+                    <div class="semantic-category">
+                        <h3>Document Structure</h3>
+                        <div class="element-list">
+                            <div class="element-item">
+                                <code>&lt;header&gt;</code>
+                                <span>Page/section introductory content</span>
+                            </div>
+                            <div class="element-item">
+                                <code>&lt;main&gt;</code>
+                                <span>Primary content of the document</span>
+                            </div>
+                            <div class="element-item">
+                                <code>&lt;footer&gt;</code>
+                                <span>Page/section concluding content</span>
+                            </div>
+                            <div class="element-item">
+                                <code>&lt;nav&gt;</code>
+                                <span>Navigation links and menus</span>
+                            </div>
+                            <div class="element-item">
+                                <code>&lt;aside&gt;</code>
+                                <span>Complementary content</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="semantic-category">
+                        <h3>Content Sections</h3>
+                        <div class="element-list">
+                            <div class="element-item">
+                                <code>&lt;article&gt;</code>
+                                <span>Self-contained content</span>
+                            </div>
+                            <div class="element-item">
+                                <code>&lt;section&gt;</code>
+                                <span>Thematic content grouping</span>
+                            </div>
+                            <div class="element-item">
+                                <code>&lt;h1&gt;-&lt;h6&gt;</code>
+                                <span>Hierarchical headings</span>
+                            </div>
+                            <div class="element-item">
+                                <code>&lt;figure&gt;</code>
+                                <span>Self-contained content with caption</span>
+                            </div>
+                            <div class="element-item">
+                                <code>&lt;details&gt;</code>
+                                <span>Expandable content disclosure</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-demo">
+                    <h4>Dashboard Structure Demo</h4>
+                    <div class="demo-tabs">
+                        <button class="tab-btn active" data-tab="dashboard-good">Semantic Dashboard</button>
+                        <button class="tab-btn" data-tab="dashboard-bad">Non-Semantic Dashboard</button>
+                        <button class="tab-btn" data-tab="landmark-test">Landmark Tester</button>
+                    </div>
+                    
+                    <div class="tab-content active" id="dashboard-good">
+                        <div class="dashboard-example">
+                            <h5>Well-Structured Analytics Dashboard</h5>
+                            <div class="example-dashboard good">
+                                <header>
+                                    <h1>Analytics Dashboard</h1>
+                                    <nav aria-label="Dashboard navigation">
+                                        <ul>
+                                            <li><a href="#overview">Overview</a></li>
+                                            <li><a href="#reports">Reports</a></li>
+                                            <li><a href="#settings">Settings</a></li>
+                                        </ul>
+                                    </nav>
+                                </header>
+                                <main>
+                                    <section aria-labelledby="metrics-heading">
+                                        <h2 id="metrics-heading">Key Metrics</h2>
+                                        <div class="metrics-grid">
+                                            <article class="metric-card">
+                                                <h3>Total Users</h3>
+                                                <p class="metric-value">12,847</p>
+                                            </article>
+                                            <article class="metric-card">
+                                                <h3>Conversion Rate</h3>
+                                                <p class="metric-value">3.2%</p>
+                                            </article>
+                                        </div>
+                                    </section>
+                                    <section aria-labelledby="chart-heading">
+                                        <h2 id="chart-heading">Performance Trends</h2>
+                                        <figure>
+                                            <div class="chart-placeholder">[Chart visualization]</div>
+                                            <figcaption>Monthly user growth over the past year</figcaption>
+                                        </figure>
+                                    </section>
+                                </main>
+                                <aside aria-label="Recent activity">
+                                    <h2>Recent Activity</h2>
+                                    <ul>
+                                        <li>New user registration spike</li>
+                                        <li>Mobile traffic increased 15%</li>
+                                    </ul>
+                                </aside>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="dashboard-bad">
+                        <div class="dashboard-example">
+                            <h5>Poorly Structured Analytics Dashboard</h5>
+                            <div class="example-dashboard bad">
+                                <div>
+                                    <div style="font-size: 24px; font-weight: bold;">Analytics Dashboard</div>
+                                    <div>
+                                        <div><a href="#overview">Overview</a></div>
+                                        <div><a href="#reports">Reports</a></div>
+                                        <div><a href="#settings">Settings</a></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <div style="font-size: 20px; font-weight: bold;">Key Metrics</div>
+                                        <div>
+                                            <div>
+                                                <div style="font-weight: bold;">Total Users</div>
+                                                <div style="font-size: 18px;">12,847</div>
+                                            </div>
+                                            <div>
+                                                <div style="font-weight: bold;">Conversion Rate</div>
+                                                <div style="font-size: 18px;">3.2%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 20px; font-weight: bold;">Performance Trends</div>
+                                        <div>[Chart visualization]</div>
+                                        <div style="font-size: 12px;">Monthly user growth over the past year</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 18px; font-weight: bold;">Recent Activity</div>
+                                    <div>New user registration spike</div>
+                                    <div>Mobile traffic increased 15%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="landmark-test">
+                        <div class="landmark-tester">
+                            <h5>Landmark Navigation Tester</h5>
+                            <div class="tester-controls">
+                                <button id="highlight-landmarks" class="control-btn">Highlight Landmarks</button>
+                                <button id="test-navigation" class="control-btn">Test Navigation</button>
+                                <button id="check-labels" class="control-btn">Check Labels</button>
+                            </div>
+                            <div id="landmark-results" class="analysis-results">
+                                <!-- Landmark analysis results will appear here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Heading Hierarchy Section -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2>📋 Testing: Heading Hierarchy & Content Flow</h2>
+                <p class="section-subtitle">Learn to validate logical content organization and reading order</p>
+            </div>
+            <div class="slide-content">
+                <div class="hierarchy-demo">
+                    <h3>Heading Hierarchy Validator</h3>
+                    <div class="demo-controls">
+                        <button id="scan-headings" class="control-btn">Scan Page Headings</button>
+                        <button id="validate-hierarchy" class="control-btn">Validate Hierarchy</button>
+                        <button id="simulate-navigation" class="control-btn">Simulate Screen Reader Navigation</button>
+                    </div>
+                    
+                    <div id="heading-analysis" class="analysis-output">
+                        <!-- Heading analysis will appear here -->
+                    </div>
+                </div>
+                
+                <div class="form-structure-demo">
+                    <h3>Form Structure Testing</h3>
+                    <div class="form-examples">
+                        <div class="form-example good">
+                            <h4>Well-Structured Contact Form</h4>
+                            <form>
+                                <fieldset>
+                                    <legend>Personal Information</legend>
+                                    <div class="form-group">
+                                        <label for="name">Full Name</label>
+                                        <input type="text" id="name" name="name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email Address</label>
+                                        <input type="email" id="email" name="email" required>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <legend>Message Details</legend>
+                                    <div class="form-group">
+                                        <label for="subject">Subject</label>
+                                        <select id="subject" name="subject">
+                                            <option value="">Choose a topic</option>
+                                            <option value="support">Technical Support</option>
+                                            <option value="billing">Billing Question</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message">Message</label>
+                                        <textarea id="message" name="message" rows="4"></textarea>
+                                    </div>
+                                </fieldset>
+                                <button type="submit">Send Message</button>
+                            </form>
+                        </div>
+                        
+                        <div class="form-controls">
+                            <button id="analyze-form" class="control-btn">Analyze Form Structure</button>
+                            <button id="test-form-flow" class="control-btn">Test Reading Flow</button>
+                        </div>
+                        
+                        <div id="form-analysis" class="analysis-output">
+                            <!-- Form analysis results will appear here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advanced Testing Section -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2>⚡ Mastery: Advanced Page Meaning Validation</h2>
+                <p class="section-subtitle">Comprehensive QA strategies for complex page structures</p>
+            </div>
+            <div class="slide-content">
+                <div class="testing-scenarios">
+                    <h3>Real-World Testing Scenarios</h3>
+                    
+                    <div class="scenario-tabs">
+                        <button class="tab-btn active" data-tab="scenario-ecommerce">E-commerce Product Page</button>
+                        <button class="tab-btn" data-tab="scenario-blog">Blog Article</button>
+                        <button class="tab-btn" data-tab="scenario-app">Web Application</button>
+                    </div>
+                    
+                    <div class="tab-content active" id="scenario-ecommerce">
+                        <div class="scenario-content">
+                            <h4>Testing Challenge: Product Page Structure</h4>
+                            <div class="challenge-description">
+                                <p><strong>Scenario:</strong> You're testing an e-commerce product page. The page has product images, descriptions, reviews, and related products. How would you validate the semantic structure?</p>
+                            </div>
+                            
+                            <div class="challenge-questions">
+                                <h5>QA Testing Questions:</h5>
+                                <div class="question-list">
+                                    <div class="question-item">
+                                        <span class="question-number">1</span>
+                                        <span>Are product details grouped in a logical <code>&lt;article&gt;</code> or <code>&lt;section&gt;</code>?</span>
+                                    </div>
+                                    <div class="question-item">
+                                        <span class="question-number">2</span>
+                                        <span>Do reviews have proper heading hierarchy (H2 → H3 for individual reviews)?</span>
+                                    </div>
+                                    <div class="question-item">
+                                        <span class="question-number">3</span>
+                                        <span>Are related products in an <code>&lt;aside&gt;</code> with proper labeling?</span>
+                                    </div>
+                                    <div class="question-item">
+                                        <span class="question-number">4</span>
+                                        <span>Can users navigate by landmarks to skip to different sections?</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button id="test-ecommerce" class="control-btn">Run Structure Test</button>
+                            <div id="ecommerce-results" class="scenario-results">
+                                <!-- Results will appear here -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="scenario-blog">
+                        <div class="scenario-content">
+                            <h4>Testing Challenge: Blog Article Structure</h4>
+                            <div class="challenge-description">
+                                <p><strong>Scenario:</strong> You're testing a blog with multiple articles, comments, and sidebar content. How do you ensure proper content hierarchy?</p>
+                            </div>
+                            
+                            <div class="challenge-questions">
+                                <h5>QA Testing Questions:</h5>
+                                <div class="question-list">
+                                    <div class="question-item">
+                                        <span class="question-number">1</span>
+                                        <span>Does each article have a clear <code>&lt;article&gt;</code> boundary?</span>
+                                    </div>
+                                    <div class="question-item">
+                                        <span class="question-number">2</span>
+                                        <span>Are comments properly nested within the article structure?</span>
+                                    </div>
+                                    <div class="question-item">
+                                        <span class="question-number">3</span>
+                                        <span>Does the sidebar use <code>&lt;aside&gt;</code> with descriptive labels?</span>
+                                    </div>
+                                    <div class="question-item">
+                                        <span class="question-number">4</span>
+                                        <span>Can screen readers distinguish between main content and supplementary content?</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button id="test-blog" class="control-btn">Run Structure Test</button>
+                            <div id="blog-results" class="scenario-results">
+                                <!-- Results will appear here -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="scenario-app">
+                        <div class="scenario-content">
+                            <h4>Testing Challenge: Web Application Interface</h4>
+                            <div class="challenge-description">
+                                <p><strong>Scenario:</strong> You're testing a complex web app with multiple panels, toolbars, and dynamic content areas. How do you validate the application structure?</p>
+                            </div>
+                            
+                            <div class="challenge-questions">
+                                <h5>QA Testing Questions:</h5>
+                                <div class="question-list">
+                                    <div class="question-item">
+                                        <span class="question-number">1</span>
+                                        <span>Are application regions clearly defined with ARIA landmarks?</span>
+                                    </div>
+                                    <div class="question-item">
+                                        <span class="question-number">2</span>
+                                        <span>Do dynamic content areas have proper live region announcements?</span>
+                                    </div>
+                                    <div class="question-item">
+                                        <span class="question-number">3</span>
+                                        <span>Can users navigate between app sections using landmark navigation?</span>
+                                    </div>
+                                    <div class="question-item">
+                                        <span class="question-number">4</span>
+                                        <span>Are modal dialogs and overlays properly integrated into the page structure?</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button id="test-webapp" class="control-btn">Run Structure Test</button>
+                            <div id="webapp-results" class="scenario-results">
+                                <!-- Results will appear here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QA Checklist Section -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2>📋 Master QA Checklist: Page Meaning & Structure</h2>
+                <p class="section-subtitle">Comprehensive testing checklist for semantic accessibility validation</p>
+            </div>
+            <div class="slide-content">
+                <div class="checklist-container">
+                    <div class="checklist-header">
+                        <h3>Page Meaning QA Checklist</h3>
+                        <div class="checklist-progress">
+                            <span id="checklist-progress-text">0 of 16 completed</span>
+                            <div class="progress-bar">
+                                <div id="checklist-progress-bar" class="progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-categories">
+                        <div class="checklist-category">
+                            <h4>Document Structure</h4>
+                            <div class="checklist-items">
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-checkbox">
+                                    <span class="checkmark"></span>
+                                    <span class="item-text">Page has a single <code>&lt;main&gt;</code> landmark</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-checkbox">
+                                    <span class="checkmark"></span>
+                                    <span class="item-text">Header and footer are properly marked with <code>&lt;header&gt;</code> and <code>&lt;footer&gt;</code></span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-checkbox">
+                                    <span class="checkmark"></span>
+                                    <span class="item-text">Navigation areas use <code>&lt;nav&gt;</code> with descriptive labels</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-checkbox">
+                                    <span class="checkmark"></span>
+                                    <span class="item-text">Complementary content is marked with <code>&lt;aside&gt;</code></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="checklist-category">
+                            <h4>Heading Hierarchy</h4>
+                            <div class="checklist-items">
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-checkbox">
+                                    <span class="checkmark"></span>
+                                    <span class="item-text">Page has exactly one <code>&lt;h1&gt;</code> element</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-checkbox">
+                                    <span class="checkmark"></span>
+                                    <span class="item-text">Heading levels follow logical sequence (no skipping levels)</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-checkbox">
+                                    <span class="checkmark"></span>
+                                    <span class="item-text">Headings accurately describe their content sections</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-checkbox">
+                                    <span class="checkmark"></span>
+                                    <span class="item-text">Screen reader users can navigate by headings effectively</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="checklist-category">
+                            <h4>Content Organization</h4>
+                            <div class="checklist-items">
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-checkbox">
+                                    <span class="checkmark"></span>
+                                    <span class="item-text">Related content is grouped in <code>&lt;section&gt;</code> or <code>&lt;article&gt;</code> elements</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-checkbox">
+                                    <span class="checkmark"></span>
+                                    <span class="item-text">Lists use proper <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, or <code>&lt;dl&gt;</code> markup</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-checkbox">
+                                    <span class="checkmark"></span>
+                                    <span class="item-text">Tables have proper headers and captions where needed</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-checkbox">
+                                    <span class="checkmark"></span>
+                                    <span class="item-text">Reading order matches visual layout and logical flow</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="checklist-category">
+                            <h4>Advanced Validation</h4>
+                            <div class="checklist-items">
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-checkbox">
+                                    <span class="checkmark"></span>
+                                    <span class="item-text">Page language is properly declared with <code>lang</code> attribute</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-checkbox">
+                                    <span class="checkmark"></span>
+                                    <span class="item-text">Content changes are announced to screen readers appropriately</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-checkbox">
+                                    <span class="checkmark"></span>
+                                    <span class="item-text">Skip links allow efficient navigation to main content</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-checkbox">
+                                    <span class="checkmark"></span>
+                                    <span class="item-text">Page structure remains meaningful when CSS is disabled</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-actions">
+                        <button id="export-checklist" class="btn btn-secondary">Export Results</button>
+                        <button id="reset-checklist" class="btn btn-outline">Reset Checklist</button>
+                        <div id="completion-celebration" class="completion-message" style="display: none;">
+                            <h4>Excellent work!</h4>
+                            <p>You've completed the Page Meaning & Accessibility QA checklist. You're ready to validate semantic structure in any web application!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+     
+    </main>
+
+    <footer role="contentinfo">
+        <p>&copy; 2024 Page Meaning Demo - Day 2 of QA Accessibility Training</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
