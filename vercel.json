@@ -7,18 +7,6 @@
     {
       "source": "/home",
       "destination": "/home/index.html"
-    },
-    {
-      "source": "/day-1",
-      "destination": "/day%201/index.html"
-    },
-    {
-      "source": "/day-2", 
-      "destination": "/day%202/index.html"
-    },
-    {
-      "source": "/day-3",
-      "destination": "/day%203/index.html"
     }
   ],
   "headers": [
