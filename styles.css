@@ -30,6 +30,17 @@ header {
     letter-spacing: -0.02em;
 }
 
+.checkmark {
+    display:inline-block; !important
+    width: 20px;
+    height: 20px;
+    border: 2px solid #cbd5e1;
+    border-radius: 4px;
+    position: relative;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
 .subtitle {
     font-size: 1.2rem;
     opacity: 0.9;

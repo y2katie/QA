@@ -399,6 +399,9 @@ body {
 /* Grid Layouts */
 .intro-grid {
     display: grid;
+    margin: 0 auto !important;
+    width:80%;
+    margin-top: 20px !important;
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
     margin-bottom: 2rem;
@@ -406,6 +409,9 @@ body {
 
 .semantic-grid {
     display: grid;
+    margin: 0 auto !important;
+    width:80%;
+    margin-top: 20px !important;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
     margin-bottom: 2rem;
@@ -811,6 +817,7 @@ legend {
 }
 
 .checkmark {
+    display: inline-block !important;
     width: 20px;
     height: 20px;
     border: 2px solid #cbd5e1;
@@ -1027,6 +1034,9 @@ legend {
 
 .slide-content {
     padding: 0;
+    margin: 0 auto !important;
+    width:80%;
+    margin-top: 20px !important;
 }
 
 /* Highlight Boxes */
