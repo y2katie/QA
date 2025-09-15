@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 5: Comprehensive Accessibility Testing | Accessibility QA Training</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <ul>
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#keyboard-operability">Keyboard Operability</a></li>
+                <li><a href="#keyboard-traps">Keyboard Traps</a></li>
+                <li><a href="#focus-order">Focus Order</a></li>
+                <li><a href="#context-changes">Context Changes</a></li>
+                <li><a href="#hover-focus">Hover/Focus Content</a></li>
+                <li><a href="#comprehensive-testing">Comprehensive Testing</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main role="main">
+        <!-- Introduction Section -->
+        <section id="intro" class="slide">
+            <h1>Comprehensive Accessibility Testing</h1>
+            <div class="slide-content">
+                <h2>Day 5: Complete QA Testing Workflow</h2>
+                <p>Master the complete accessibility testing process with hands-on examples covering all critical WCAG success criteria.</p>
+                
+                <div class="foundation-box">
+                    <h3>Complete Testing Coverage</h3>
+                    <p>Today we bring together everything from Days 1-4 into a comprehensive testing workflow that covers all major accessibility barriers.</p>
+                    
+                    <div class="property-grid">
+                        <div class="property-card">
+                            <h4>Keyboard Accessibility</h4>
+                            <p>SC 2.1.1, 2.1.2, 2.4.3 - Complete keyboard operability testing</p>
+                        </div>
+                        <div class="property-card">
+                            <h4>Context Changes</h4>
+                            <p>SC 3.2.1, 3.2.2 - Focus and input behavior validation</p>
+                        </div>
+                        <div class="property-card">
+                            <h4>Interactive Content</h4>
+                            <p>SC 1.4.13, 2.5.2, 2.5.3, 4.1.2 - Complete interaction testing</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SC 2.1.1: Keyboard Operability Section -->
+        <section id="keyboard-operability" class="slide">
+            <div class="slide-content">
+                <h2>SC 2.1.1: Keyboard Operability</h2>
+                <p>Detect any interactive element that cannot be operated via keyboard.</p>
+
+                <div class="breakdown-tabs">
+                    <button class="tab-btn active" data-tab="keyboard-good">✅ Keyboard Accessible</button>
+                    <button class="tab-btn" data-tab="keyboard-bad">❌ Keyboard Inaccessible</button>
+                    <button class="tab-btn" data-tab="keyboard-testing">🧪 Testing Tools</button>
+                </div>
+
+                <div class="tab-content active" id="keyboard-good">
+                    <div class="example good">
+                        <h6>✅ Fully Keyboard Accessible Elements</h6>
+                        <div class="demo-area">
+                            <button class="demo-btn">Standard Button</button>
+                            <a href="#" class="demo-btn">Link Button</a>
+                            <div class="custom-button" tabindex="0" role="button">Custom Button</div>
+                            <select class="demo-select" aria-label="Demo select">
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                            </select>
+                            <input type="text" placeholder="Text input" class="demo-input">
+                            <p><em>All elements above are keyboard accessible with Tab/Shift+Tab</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="keyboard-bad">
+                    <div class="example bad">
+                        <h6>❌ Keyboard Inaccessible Elements</h6>
+                        <div class="demo-area">
+                            <div class="fake-button" onclick="alert('Clicked!')">Fake Button (div only)</div>
+                            <span class="fake-link" onclick="window.open('#')">Fake Link (span only)</span>
+                            <div class="custom-slider">
+                                <div class="slider-track">
+                                    <div class="slider-thumb" style="left: 30%"></div>
+                                </div>
+                            </div>
+                            <p><em>⚠️ These elements cannot be reached or operated with keyboard</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="keyboard-testing">
+                    <div class="testing-tools">
+                        <h4>Keyboard Testing Tools</h4>
+                        <button id="scan-keyboard-elements" class="demo-btn primary">Scan Page for Keyboard Issues</button>
+                        <button id="test-tab-order" class="demo-btn primary">Test Tab Order</button>
+                        <div id="keyboard-scan-results" class="analysis-output" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SC 2.1.2: Keyboard Traps Section -->
+        <section id="keyboard-traps" class="slide">
+            <div class="slide-content">
+                <h2>SC 2.1.2: No Keyboard Trap</h2>
+                <p>Identify any keyboard trap where users cannot escape using standard navigation.</p>
+
+                <div class="breakdown-tabs">
+                    <button class="tab-btn active" data-tab="trap-demo">🪤 Keyboard Trap Demo</button>
+                    <button class="tab-btn" data-tab="trap-good">✅ Proper Modal</button>
+                    <button class="tab-btn" data-tab="trap-testing">🧪 Trap Detection</button>
+                </div>
+
+                <div class="tab-content active" id="trap-demo">
+                    <div class="example bad">
+                        <h6>⚠️ Keyboard Trap Example</h6>
+                        <div class="demo-area">
+                            <button id="enter-trap" class="demo-btn bad">Enter Keyboard Trap</button>
+                            <div id="keyboard-trap" class="trap-container" style="display: none; border: 2px solid red; padding: 1rem; background: #ffe6e6; position: relative; z-index: 1000; margin-top: 1rem;">
+                                <h5>You're trapped! 🪤</h5>
+                                <p>Tab and Shift+Tab only cycle within these elements:</p>
+                                <input type="text" placeholder="Trapped input 1" class="demo-input">
+                                <input type="text" placeholder="Trapped input 2" class="demo-input">
+                                <button class="demo-btn">Trapped button</button>
+                                <p><strong>Escape mechanism:</strong> Press Ctrl+E to escape (or click outside)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="trap-good">
+                    <div class="example good">
+                        <h6>✅ Proper Modal with Focus Management</h6>
+                        <div class="demo-area">
+                            <button id="open-good-modal" class="demo-btn good">Open Proper Modal</button>
+                            <div id="good-modal" class="modal-overlay" style="display: none;">
+                                <div class="modal-content" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+                                    <h5 id="modal-title">Accessible Modal</h5>
+                                    <p>Focus is trapped within modal, but Escape key closes it.</p>
+                                    <input type="text" placeholder="Modal input">
+                                    <div class="modal-actions">
+                                        <button class="demo-btn">Save</button>
+                                        <button id="close-good-modal" class="demo-btn secondary">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="trap-testing">
+                    <div class="testing-tools">
+                        <h4>Keyboard Trap Detection</h4>
+                        <button id="detect-traps" class="demo-btn primary">Scan for Keyboard Traps</button>
+                        <div id="trap-detection-results" class="analysis-output" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SC 2.4.3: Focus Order Section -->
+        <section id="focus-order" class="slide">
+            <div class="slide-content">
+                <h2>SC 2.4.3: Focus Order</h2>
+                <p>Evaluate the focus order across all controls to ensure logical navigation.</p>
+
+                <div class="breakdown-tabs">
+                    <button class="tab-btn active" data-tab="focus-good">✅ Logical Order</button>
+                    <button class="tab-btn" data-tab="focus-bad">❌ Confusing Order</button>
+                    <button class="tab-btn" data-tab="focus-testing">🧪 Focus Analysis</button>
+                </div>
+
+                <div class="tab-content active" id="focus-good">
+                    <div class="example good">
+                        <h6>✅ Logical Focus Order</h6>
+                        <div class="demo-area">
+                            <form class="focus-demo-form">
+                                <div class="form-row">
+                                    <label for="first-name">First Name:</label>
+                                    <input type="text" id="first-name">
+                                </div>
+                                <div class="form-row">
+                                    <label for="last-name">Last Name:</label>
+                                    <input type="text" id="last-name">
+                                </div>
+                                <div class="form-row">
+                                    <label for="email">Email:</label>
+                                    <input type="email" id="email">
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="demo-btn primary">Submit</button>
+                                    <button type="reset" class="demo-btn secondary">Reset</button>
+                                </div>
+                            </form>
+                            <p><em>Tab through form - notice logical top-to-bottom, left-to-right order</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="focus-bad">
+                    <div class="example bad">
+                        <h6>❌ Confusing Focus Order</h6>
+                        <div class="demo-area">
+                            <form class="focus-demo-form bad-focus-order">
+                                <div class="form-row">
+                                    <label for="bad-first">First Name:</label>
+                                    <input type="text" id="bad-first" data-focus-order="5">
+                                </div>
+                                <div class="form-row">
+                                    <label for="bad-last">Last Name:</label>
+                                    <input type="text" id="bad-last" data-focus-order="1">
+                                </div>
+                                <div class="form-row">
+                                    <label for="bad-email">Email:</label>
+                                    <input type="email" id="bad-email" data-focus-order="3">
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="demo-btn primary" data-focus-order="2">Submit</button>
+                                    <button type="reset" class="demo-btn secondary" data-focus-order="4">Reset</button>
+                                </div>
+                            </form>
+                            <p><em>⚠️ Tab through form - notice confusing jump order</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="focus-testing">
+                    <div class="testing-tools">
+                        <h4>Focus Order Analysis</h4>
+                        <button id="analyze-focus-order" class="demo-btn primary">Analyze Page Focus Order</button>
+                        <button id="highlight-focus-path" class="demo-btn primary">Highlight Focus Path</button>
+                        <div id="focus-analysis-results" class="analysis-output" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SC 3.2.1 & 3.2.2: Context Changes Section -->
+        <section id="context-changes" class="slide">
+            <div class="slide-content">
+                <h2>SC 3.2.1 & 3.2.2: Context Changes</h2>
+                <p>Identify improper context changes on focus or input that confuse users.</p>
+
+                <div class="breakdown-tabs">
+                    <button class="tab-btn active" data-tab="context-good">✅ Predictable</button>
+                    <button class="tab-btn" data-tab="context-bad">❌ Unexpected</button>
+                    <button class="tab-btn" data-tab="context-testing">🧪 Context Testing</button>
+                </div>
+
+                <div class="tab-content active" id="context-good">
+                    <div class="example good">
+                        <h6>✅ Predictable Context Changes</h6>
+                        <div class="demo-area">
+                            <label for="predictable-select">Country (shows shipping info):</label>
+                            <select id="predictable-select" class="demo-select">
+                                <option value="">Select country</option>
+                                <option value="us">United States</option>
+                                <option value="ca">Canada</option>
+                            </select>
+                            <div id="shipping-info" style="display: none; margin-top: 1rem; padding: 1rem; background: #f0f8ff; border-radius: 4px;">
+                                <h6>Shipping Information</h6>
+                                <p>Standard shipping: 3-5 business days</p>
+                            </div>
+                            <p><em>Shows additional content without navigation</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="context-bad">
+                    <div class="example bad">
+                        <h6>❌ Unexpected Context Changes</h6>
+                        <div class="demo-area">
+                            <label for="focus-trap-input">Focus causes popup:</label>
+                            <input type="text" id="focus-trap-input" placeholder="Focus me for surprise!">
+                            
+                            <label for="auto-submit-select">Auto-submit dropdown:</label>
+                            <select id="auto-submit-select" class="demo-select">
+                                <option value="">Select option</option>
+                                <option value="option1">Option 1 (submits form)</option>
+                                <option value="option2">Option 2 (submits form)</option>
+                            </select>
+                            
+                            <div id="focus-popup" class="popup-overlay" style="display: none;">
+                                <div class="popup-content">
+                                    <h6>Unexpected Popup!</h6>
+                                    <p>This appeared just from focusing the input above.</p>
+                                    <button id="close-popup" class="demo-btn">Close</button>
+                                </div>
+                            </div>
+                            <p><em>⚠️ These cause unexpected context changes</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="context-testing">
+                    <div class="testing-tools">
+                        <h4>Context Change Detection</h4>
+                        <button id="test-context-changes" class="demo-btn primary">Test All Form Elements</button>
+                        <div id="context-change-results" class="analysis-output" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SC 1.4.13: Hover/Focus Content Section -->
+        <section id="hover-focus" class="slide">
+            <div class="slide-content">
+                <h2>SC 1.4.13: Content on Hover or Focus</h2>
+                <p>Evaluate hover/focus behavior for visibility and dismissal rules.</p>
+
+                <div class="breakdown-tabs">
+                    <button class="tab-btn active" data-tab="hover-good">✅ Proper Behavior</button>
+                    <button class="tab-btn" data-tab="hover-bad">❌ Problematic</button>
+                    <button class="tab-btn" data-tab="hover-testing">🧪 Hover Testing</button>
+                </div>
+
+                <div class="tab-content active" id="hover-good">
+                    <div class="example good">
+                        <h6>✅ Accessible Hover/Focus Content</h6>
+                        <div class="demo-area">
+                            <button class="tooltip-trigger" data-tooltip="This tooltip is dismissible with Escape and hoverable">
+                                Hover/Focus for Tooltip
+                            </button>
+                            
+                            <div class="dropdown-container">
+                                <button class="dropdown-trigger" aria-expanded="false">
+                                    Dropdown Menu ▼
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#" role="menuitem">Menu Item 1</a></li>
+                                    <li><a href="#" role="menuitem">Menu Item 2</a></li>
+                                    <li><a href="#" role="menuitem">Menu Item 3</a></li>
+                                </ul>
+                            </div>
+                            <p><em>Content is hoverable, dismissible, and persistent</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="hover-bad">
+                    <div class="example bad">
+                        <h6>❌ Problematic Hover Content</h6>
+                        <div class="demo-area">
+                            <span class="bad-tooltip-trigger" title="This tooltip disappears when you try to hover it">
+                                Bad Tooltip (title attribute)
+                            </span>
+                            
+                            <div class="bad-hover-content">
+                                Hover me
+                                <div class="bad-hover-popup">
+                                    This popup can't be dismissed and blocks content below!
+                                </div>
+                            </div>
+                            <p><em>⚠️ Content not hoverable or dismissible</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="hover-testing">
+                    <div class="testing-tools">
+                        <h4>Hover/Focus Content Analysis</h4>
+                        <button id="test-hover-content" class="demo-btn primary">Test All Hover Content</button>
+                        <div id="hover-test-results" class="analysis-output" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comprehensive Testing Section -->
+        <section id="comprehensive-testing" class="slide">
+            <div class="slide-content">
+                <h2>🔬 Comprehensive Testing Workflow</h2>
+                <p>Complete accessibility testing combining all success criteria.</p>
+
+                <div class="testing-workflow">
+                    <div class="workflow-step">
+                        <h5>1. Keyboard Accessibility Audit</h5>
+                        <button id="full-keyboard-audit" class="demo-btn primary">Run Complete Keyboard Audit</button>
+                        <div id="keyboard-audit-results" class="analysis-output" style="display: none;"></div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <h5>2. Focus Management Analysis</h5>
+                        <button id="focus-management-audit" class="demo-btn primary">Analyze Focus Management</button>
+                        <div id="focus-audit-results" class="analysis-output" style="display: none;"></div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <h5>3. Interactive Content Validation</h5>
+                        <button id="interactive-content-audit" class="demo-btn primary">Validate All Interactive Content</button>
+                        <div id="interactive-audit-results" class="analysis-output" style="display: none;"></div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <h5>4. Complete Accessibility Report</h5>
+                        <button id="generate-full-report" class="demo-btn primary">Generate Complete Report</button>
+                        <div id="full-report-results" class="analysis-output" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="master-checklist">
+                    <h4>Day 5 Master Checklist</h4>
+                    <div class="checklist-grid">
+                        <div class="checklist-section">
+                            <h5>⌨️ Keyboard (2.1.1, 2.1.2, 2.4.3)</h5>
+                            <div class="checklist-items">
+                                <label><input type="checkbox"> All interactive elements keyboard accessible</label>
+                                <label><input type="checkbox"> No keyboard traps detected</label>
+                                <label><input type="checkbox"> Focus order is logical</label>
+                                <label><input type="checkbox"> Focus indicators visible</label>
+                            </div>
+                        </div>
+
+                        <div class="checklist-section">
+                            <h5>🔄 Context Changes (3.2.1, 3.2.2)</h5>
+                            <div class="checklist-items">
+                                <label><input type="checkbox"> No unexpected focus changes</label>
+                                <label><input type="checkbox"> No auto-submit on input change</label>
+                                <label><input type="checkbox"> Context changes are user-initiated</label>
+                                <label><input type="checkbox"> Users can predict behavior</label>
+                            </div>
+                        </div>
+
+                        <div class="checklist-section">
+                            <h5>🎯 Interactive Content (1.4.13, 2.5.2, 2.5.3, 4.1.2)</h5>
+                            <div class="checklist-items">
+                                <label><input type="checkbox"> Hover content is hoverable</label>
+                                <label><input type="checkbox"> Hover content is dismissible</label>
+                                <label><input type="checkbox"> Pointer cancellation works</label>
+                                <label><input type="checkbox"> Labels match accessible names</label>
+                                <label><input type="checkbox"> Name, role, value exposed</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-actions">
+                    <button id="export-day5-results" class="action-btn">Export Complete Results</button>
+                    <button id="reset-day5" class="action-btn secondary">Reset All Checklists</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Accessibility QA Training - Day 5: Comprehensive Testing</p>
+            <p>Complete accessibility testing mastery</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

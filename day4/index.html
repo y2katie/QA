@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 4: Advanced Input & Interaction Accessibility | Accessibility QA Training</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <ul>
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#label-in-name">Label in Name</a></li>
+                <li><a href="#on-input">On Input</a></li>
+                <li><a href="#pointer-cancellation">Pointer Cancellation</a></li>
+                <li><a href="#name-role-value">Name, Role, Value</a></li>
+                <li><a href="#qa-checklist">QA Checklist</a></li>
+                <li><a href="#hands-on-testing">Hands-On Testing</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main role="main">
+        <!-- Introduction Section -->
+        <section id="intro" class="slide">
+            <h1>Advanced Input & Interaction Accessibility</h1>
+            <div class="slide-content">
+                <h2>Day 4: Advanced WCAG Success Criteria</h2>
+                <p>Master advanced input and interaction accessibility testing with focus on WCAG 2.5.3, 3.2.2, 2.5.2, and 4.1.2.</p>
+                
+                <div class="foundation-box">
+                    <h3>Building on Previous Days</h3>
+                    <p>Today we advance beyond basic screen reader compatibility to tackle complex interaction patterns that ensure all users can successfully navigate and interact with dynamic interfaces.</p>
+                    
+                    <div class="property-grid">
+                        <div class="property-card">
+                            <h4>SC 2.5.3: Label in Name</h4>
+                            <p>Visible labels included in accessible names for speech input users</p>
+                        </div>
+                        <div class="property-card">
+                            <h4>SC 3.2.2: On Input</h4>
+                            <p>No unexpected context changes when input values change</p>
+                        </div>
+                        <div class="property-card">
+                            <h4>SC 2.5.2: Pointer Cancellation</h4>
+                            <p>Functions triggered on down-event can be cancelled or undone</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SC 2.5.3: Label in Name Section -->
+        <section id="label-in-name" class="slide">
+            <div class="slide-content">
+                <h2>SC 2.5.3: Label in Name</h2>
+                <p>Speech input users say what they see. When visible labels don't match accessible names, voice commands fail.</p>
+
+                <div class="breakdown-tabs">
+                    <button class="tab-btn active" data-tab="good-labels">✅ Good Examples</button>
+                    <button class="tab-btn" data-tab="bad-labels">❌ Bad Examples</button>
+                    <button class="tab-btn" data-tab="testing-labels">🧪 Testing</button>
+                </div>
+
+                <div class="tab-content active" id="good-labels">
+                    <div class="example-pair">
+                        <div class="example good">
+                            <h6>✅ Matching Label and Name</h6>
+                            <div class="demo-area">
+                                <button id="good-save-btn" aria-label="Save Document">Save Document</button>
+                                <p><strong>Visible:</strong> "Save Document"</p>
+                                <p><strong>Accessible Name:</strong> "Save Document"</p>
+                                <p><strong>Voice Command:</strong> "Click Save Document" ✅</p>
+                            </div>
+                        </div>
+                        <div class="example good">
+                            <h6>✅ Label Included in Name</h6>
+                            <div class="demo-area">
+                                <button id="good-submit-btn" aria-label="Submit Contact Form">Submit</button>
+                                <p><strong>Visible:</strong> "Submit"</p>
+                                <p><strong>Accessible Name:</strong> "Submit Contact Form"</p>
+                                <p><strong>Voice Command:</strong> "Click Submit" ✅</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="bad-labels">
+                    <div class="example-pair">
+                        <div class="example bad">
+                            <h6>❌ Mismatched Label and Name</h6>
+                            <div class="demo-area">
+                                <button id="bad-save-btn" aria-label="Submit Document">Save</button>
+                                <p><strong>Visible:</strong> "Save"</p>
+                                <p><strong>Accessible Name:</strong> "Submit Document"</p>
+                                <p><strong>Voice Command:</strong> "Click Save" ❌ (fails)</p>
+                            </div>
+                        </div>
+                        <div class="example bad">
+                            <h6>❌ Label Not in Name</h6>
+                            <div class="demo-area">
+                                <button id="bad-download-btn" aria-label="Get File">Download</button>
+                                <p><strong>Visible:</strong> "Download"</p>
+                                <p><strong>Accessible Name:</strong> "Get File"</p>
+                                <p><strong>Voice Command:</strong> "Click Download" ❌ (fails)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="testing-labels">
+                    <div class="analysis-output">
+                        <h4>Testing Checklist</h4>
+                        <ul>
+                            <li>Identify all interactive elements with visible text labels</li>
+                            <li>Check accessible name using DevTools or screen reader</li>
+                            <li>Verify visible label text is included in accessible name</li>
+                            <li>Test with speech input software if available</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SC 3.2.2: On Input Section -->
+        <section id="on-input" class="slide">
+            <div class="slide-content">
+                <h2>SC 3.2.2: On Input</h2>
+                <p>Changing input values should not cause unexpected context changes like navigation or form submission.</p>
+
+                <div class="breakdown-tabs">
+                    <button class="tab-btn active" data-tab="good-input">✅ Predictable</button>
+                    <button class="tab-btn" data-tab="bad-input">❌ Unexpected</button>
+                    <button class="tab-btn" data-tab="testing-input">🧪 Testing</button>
+                </div>
+
+                <div class="tab-content active" id="good-input">
+                    <div class="example good">
+                        <h6>✅ Predictable Form Behavior</h6>
+                        <div class="demo-area">
+                            <label for="country-good">Country:</label>
+                            <select id="country-good">
+                                <option value="">Select a country</option>
+                                <option value="us">United States</option>
+                                <option value="ca">Canada</option>
+                                <option value="uk">United Kingdom</option>
+                            </select>
+                            <div id="shipping-options" style="display: none; margin-top: 1rem;">
+                                <p>Shipping options now available</p>
+                            </div>
+                            <p><em>Shows related content without navigation</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="bad-input">
+                    <div class="example bad">
+                        <h6>❌ Unexpected Page Reload</h6>
+                        <div class="demo-area">
+                            <label for="language-bad">Language:</label>
+                            <select id="language-bad">
+                                <option value="">Select language</option>
+                                <option value="en">English</option>
+                                <option value="es">Español</option>
+                                <option value="fr">Français</option>
+                            </select>
+                            <p><em>⚠️ This will actually reload the page on change (problematic behavior)</em></p>
+                            <div id="reload-warning" style="display: none; background: #fff3cd; border: 1px solid #ffeaa7; padding: 1rem; margin-top: 1rem; border-radius: 4px;">
+                                <strong>⚠️ Warning:</strong> Page will reload in <span id="countdown">3</span> seconds. This violates SC 3.2.2!
+                                <button id="cancel-reload" style="margin-left: 1rem; padding: 0.25rem 0.5rem;">Cancel Reload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="testing-input">
+                    <div class="analysis-output">
+                        <h4>Testing Checklist</h4>
+                        <ul>
+                            <li>Test all form controls for unexpected behavior on change</li>
+                            <li>Verify dropdowns don't auto-submit or navigate</li>
+                            <li>Check that context changes are user-initiated</li>
+                            <li>Ensure users can preview changes before committing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SC 2.5.2: Pointer Cancellation Section -->
+        <section id="pointer-cancellation" class="slide">
+            <div class="slide-content">
+                <h2>SC 2.5.2: Pointer Cancellation</h2>
+                <p>Functions triggered on pointer down-event must be cancellable, reversible, or essential.</p>
+
+                <div class="breakdown-tabs">
+                    <button class="tab-btn active" data-tab="safe-pointers">✅ Safe Implementation</button>
+                    <button class="tab-btn" data-tab="dangerous-pointers">❌ Dangerous</button>
+                    <button class="tab-btn" data-tab="testing-pointers">🧪 Testing</button>
+                </div>
+
+                <div class="tab-content active" id="safe-pointers">
+                    <div class="example good">
+                        <h6>✅ Action on Mouse Up (Cancellable)</h6>
+                        <div class="demo-area">
+                            <button id="safe-delete" class="demo-btn good">Delete Item</button>
+                            <p><em>Action occurs on mouse up - drag away to cancel</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="dangerous-pointers">
+                    <div class="example bad">
+                        <h6>❌ Action on Mouse Down (Not Cancellable)</h6>
+                        <div class="demo-area">
+                            <button id="dangerous-delete" class="demo-btn bad">Delete Now</button>
+                            <p><em>⚠️ Action occurs immediately on mouse down</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="testing-pointers">
+                    <div class="analysis-output">
+                        <h4>Testing Checklist</h4>
+                        <ul>
+                            <li>Test mouse down vs mouse up behavior</li>
+                            <li>Verify drag-away cancellation works</li>
+                            <li>Check for undo mechanisms on immediate actions</li>
+                            <li>Identify essential functions (drawing, games)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SC 4.1.2: Name, Role, Value Section -->
+        <section id="name-role-value" class="slide">
+            <div class="slide-content">
+                <h2>SC 4.1.2: Name, Role, Value (Advanced)</h2>
+                <p>Custom components must expose proper name, role, and value to assistive technologies.</p>
+
+                <div class="breakdown-tabs">
+                    <button class="tab-btn active" data-tab="custom-components">🔧 Custom Components</button>
+                    <button class="tab-btn" data-tab="aria-patterns">📋 ARIA Patterns</button>
+                    <button class="tab-btn" data-tab="testing-components">🧪 Testing</button>
+                </div>
+
+                <div class="tab-content active" id="custom-components">
+                    <div class="example good">
+                        <h6>✅ Proper Custom Toggle</h6>
+                        <div class="demo-area">
+                            <div role="switch" aria-checked="false" aria-labelledby="toggle-label" tabindex="0" id="custom-toggle" class="custom-toggle">
+                                <span class="toggle-slider"></span>
+                            </div>
+                            <label id="toggle-label">Enable notifications</label>
+                            <p><strong>Role:</strong> switch | <strong>State:</strong> not pressed</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="aria-patterns">
+                    <div class="analysis-output">
+                        <h4>Required ARIA Patterns</h4>
+                        <ul>
+                            <li><strong>Modal:</strong> role="dialog", aria-labelledby, aria-modal</li>
+                            <li><strong>Combobox:</strong> role="combobox", aria-expanded, aria-controls</li>
+                            <li><strong>Slider:</strong> role="slider", aria-valuemin/max/now</li>
+                            <li><strong>Toggle:</strong> role="switch", aria-checked</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="testing-components">
+                    <div class="analysis-output">
+                        <h4>Testing Checklist</h4>
+                        <ul>
+                            <li>Inspect accessibility tree in DevTools</li>
+                            <li>Verify role, name, and state are exposed</li>
+                            <li>Test with screen reader navigation</li>
+                            <li>Check keyboard interaction patterns</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QA Checklist Section -->
+        <section id="qa-checklist" class="slide">
+            <div class="slide-content">
+                <h2>Day 4 QA Checklist</h2>
+                <p>Comprehensive checklist for advanced input and interaction accessibility testing.</p>
+
+                <div class="master-checklist">
+                    <div class="checklist-section">
+                        <h4>🎯 Label in Name (2.5.3)</h4>
+                        <div class="checklist-items">
+                            <label><input type="checkbox"> Visible text included in accessible name</label>
+                            <label><input type="checkbox"> Speech input commands work</label>
+                            <label><input type="checkbox"> Button labels match ARIA labels</label>
+                            <label><input type="checkbox"> Link text included in accessible name</label>
+                        </div>
+                    </div>
+
+                    <div class="checklist-section">
+                        <h4>⚡ On Input (3.2.2)</h4>
+                        <div class="checklist-items">
+                            <label><input type="checkbox"> No auto-submit on form changes</label>
+                            <label><input type="checkbox"> No navigation on dropdown change</label>
+                            <label><input type="checkbox"> Context changes are user-initiated</label>
+                            <label><input type="checkbox"> Users can preview before committing</label>
+                        </div>
+                    </div>
+
+                    <div class="checklist-section">
+                        <h4>👆 Pointer Cancellation (2.5.2)</h4>
+                        <div class="checklist-items">
+                            <label><input type="checkbox"> Actions on mouse up, not down</label>
+                            <label><input type="checkbox"> Drag-away cancellation works</label>
+                            <label><input type="checkbox"> Undo available for immediate actions</label>
+                            <label><input type="checkbox"> Essential functions identified</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-actions">
+                    <button id="export-day4-results" class="action-btn">Export Results</button>
+                    <button id="reset-day4" class="action-btn secondary">Reset Checklist</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hands-On Testing Section -->
+        <section id="hands-on-testing" class="slide">
+            <div class="slide-content">
+                <h2>🔬 Hands-On Testing Examples</h2>
+                <p>Practice real-world accessibility testing with interactive examples.</p>
+
+                <div class="testing-examples">
+                    <div class="testing-example">
+                        <h5>Button Inspection Example</h5>
+                        <p>Test these buttons for Label in Name compliance:</p>
+                        <div class="demo-area">
+                            <button class="test-button demo-btn" aria-label="Save Document">Save</button>
+                            <button class="test-button demo-btn" aria-label="Download File">Download</button>
+                            <button class="test-button demo-btn" aria-label="Print Page">Print</button>
+                            <button id="inspect-buttons" class="demo-btn primary">Inspect All Buttons</button>
+                        </div>
+                        <div id="button-inspection-results" class="analysis-output" style="display: none;"></div>
+                    </div>
+
+                    <div class="testing-example">
+                        <h5>Context Change Testing</h5>
+                        <p>Test these form controls for unexpected behavior:</p>
+                        <div class="demo-area">
+                            <div class="form-group">
+                                <label for="test-country">Country:</label>
+                                <select id="test-country" class="demo-select">
+                                    <option value="">Select country</option>
+                                    <option value="us">United States</option>
+                                    <option value="ca">Canada</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="test-language">Language (problematic):</label>
+                                <select id="test-language" class="demo-select">
+                                    <option value="en">English</option>
+                                    <option value="es">Español</option>
+                                </select>
+                            </div>
+                            
+                            <button id="test-context-changes" class="demo-btn primary">Test Context Changes</button>
+                        </div>
+                        <div id="context-test-results" class="analysis-output" style="display: none;"></div>
+                    </div>
+
+                    <div class="testing-example">
+                        <h5>Pointer Event Testing</h5>
+                        <p>Test mouse down vs mouse up behavior:</p>
+                        <div class="demo-area">
+                            <button id="safe-pointer-test" class="demo-btn good">Safe Button</button>
+                            <button id="dangerous-pointer-test" class="demo-btn bad">Dangerous Button</button>
+                            <button id="analyze-pointers" class="demo-btn primary">Analyze Pointer Events</button>
+                        </div>
+                        <div id="pointer-analysis-results" class="analysis-output" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Accessibility QA Training - Day 4: Advanced Input & Interaction</p>
+            <p>Building comprehensive accessibility testing expertise</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
